@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+/* Login box: inner yellow border inset with 0.25cm gap */
+.login-box{position:relative}
+.login-box::before{
+	content:"";
+	position:absolute;
+	inset:0.25cm; /* 0.25cm gap from outer edge */
+	border-radius:inherit;
+	border:2px solid #FFD700; /* thin yellow border */
+	pointer-events:none;
+	box-sizing:border-box;
+}

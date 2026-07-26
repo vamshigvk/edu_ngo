@@ -1,0 +1,48 @@
+# Full stack for Project EduAccess: PostgreSQL + FastAPI backend + React frontend.
+#
+#   db        Postgres 16 (persistent volume)
+#   backend   FastAPI on :8000  (creates tables + seeds demo data on first boot)
+#   frontend  nginx on :8080    (serves the SPA, proxies /api /auth /dashboard)
+#
+# Start everything with:  ./setup.sh   (or: docker compose up --build)
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ffg}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ffg_password}
+      POSTGRES_DB: ${POSTGRES_DB:-ffg}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"          # exposed for local inspection; safe to remove
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ffg} -d ${POSTGRES_DB:-ffg}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  backend:
+    build: ./fastapi_backend
+    environment:
+      # asyncpg connection string points at the `db` service on the compose network.
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-ffg}:${POSTGRES_PASSWORD:-ffg_password}@db:5432/${POSTGRES_DB:-ffg}
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-a-long-random-secret}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      DEBUG: "false"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"     # direct API access + Swagger at http://localhost:8000/docs
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"      # the app: http://localhost:8080
+
+volumes:
+  db_data:
