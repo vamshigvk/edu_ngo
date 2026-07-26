@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFG Global Management Dashboard</title>
+    <!-- Tailwind CSS Engine CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="h-full text-slate-800 antialiased font-sans flex flex-col">
+
+<!-- Top Navigation Header -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="h-9 w-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl tracking-tight shadow-sm">F</div>
+            <h1 class="text-xl font-bold tracking-tight text-slate-900">FFG Portal</h1>
+        </div>
+        <nav class="flex space-x-1 bg-slate-100 p-1 rounded-xl">
+            <button onclick="switchTab('emp')" id="btn-tab-emp" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer">Employee View</button>
+            <button onclick="switchTab('mentor')" id="btn-tab-mentor" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer">Mentor View</button>
+            <button onclick="switchTab('mentee')" id="btn-tab-mentee" class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer">Mentee View</button>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Workspace Container -->
+<main class="flex-1 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Tab Content: Employee Dashboard -->
+    <div id="view-emp" class="tab-view space-y-8 hidden">
+        <div class="border-b border-slate-200 pb-5 flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900">Program Operations Control</h2>
+                <p class="text-sm text-slate-500 mt-1">Cross-cohort analytics summaries, core rule execution tools, and key registration metrics.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="triggerEngine('/api/cohorts/1/scoring/run/')" class="bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold py-2.5 px-4 border border-slate-300 rounded-xl shadow-xs transition-colors cursor-pointer">Run Scoring Engine</button>
+                <button onclick="triggerEngine('/api/cohorts/1/matching/run/')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 px-4 rounded-xl shadow-xs transition-colors cursor-pointer">Execute Matcher</button>
+            </div>
+        </div>
+
+        <!-- Quantitative Summary Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Applications</p>
+                <p id="stat-total-apps" class="text-3xl font-bold tracking-tight text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Active Mentors Registered</p>
+                <p id="stat-total-mentors" class="text-3xl font-bold tracking-tight text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Formed Pairs</p>
+                <p id="stat-total-pairs" class="text-3xl font-bold tracking-tight text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pairing Success Rate</p>
+                <p id="stat-success-rate" class="text-3xl font-bold tracking-tight text-emerald-600 mt-2">0%</p>
+            </div>
+        </div>
+
+        <!-- Historical Pipeline Summary Section -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-200">
+                <h3 class="text-base font-semibold text-slate-900">Completed Cohort Execution Summary</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead class="bg-slate-50 text-slate-500 font-semibold uppercase tracking-wider text-xs border-b border-slate-200">
+                    <tr>
+                        <th class="px-6 py-3.5">Cohort Identifier</th>
+                        <th class="px-6 py-3.5">Registered Forms</th>
+                        <th class="px-6 py-3.5">Accepted Base</th>
+                        <th class="px-6 py-3.5">Closed Out Pairs</th>
+                        <th class="px-6 py-3.5">Milestones Completed</th>
+                    </tr>
+                    </thead>
+                    <tbody id="completed-cohorts-table" class="divide-y divide-slate-100">
+                    <tr>
+                        <td colspan="5" class="px-6 py-8 text-center text-slate-400 italic">No structured data models loaded into dashboard pool.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Mentor Dashboard -->
+    <div id="view-mentor" class="tab-view space-y-8 hidden">
+        <div class="border-b border-slate-200 pb-5">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Mentor Portal Node</h2>
+            <p class="text-sm text-slate-500 mt-1">Overview of your current relationship assignments and upcoming scheduled interactions.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Lifecycle Pairs</p>
+                <p id="mentor-stat-total" class="text-3xl font-bold tracking-tight text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Active Channels</p>
+                <p id="mentor-stat-active" class="text-3xl font-bold tracking-tight text-indigo-600 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Completed Logs</p>
+                <p id="mentor-stat-logged" class="text-3xl font-bold tracking-tight text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pending Calendar Items</p>
+                <p id="mentor-stat-scheduled" class="text-3xl font-bold tracking-tight text-amber-600 mt-2">0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Mentee Dashboard -->
+    <div id="view-mentee" class="tab-view space-y-8 hidden">
+        <div class="border-b border-slate-200 pb-5">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Mentee Portal Node</h2>
+            <p class="text-sm text-slate-500 mt-1">Monitor matching progress, structural pairing quality scores, and verification status fields.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pairing Matrix Status</p>
+                <p id="mentee-stat-status" class="text-xl font-bold capitalize text-slate-900 mt-3">Unassigned</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Calculated Structural Match Weight</p>
+                <p id="mentee-stat-score" class="text-3xl font-bold text-indigo-600 mt-2">0.0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Registered Interactions</p>
+                <p id="mentee-stat-checkins" class="text-3xl font-bold text-slate-900 mt-2">0</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Global State Controller Module Scripts -->
+<script>
+    // Tab switching controller mechanism
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+        document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+        // Re-render button classes across selectors
+        ['emp', 'mentor', 'mentee'].forEach(t => {
+            const btn = document.getElementById(`btn-tab-${t}`);
+            if(t === tabId) {
+                btn.className = "px-4 py-2 rounded-lg text-sm font-semibold bg-white text-slate-900 shadow-sm cursor-pointer";
+            } else {
+                btn.className = "px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors cursor-pointer";
+            }
+        });
+
+        // Dynamic data re-indexing pipeline trigger
+        if (tabId === 'emp') fetchEmployeeMetrics();
+        if (tabId === 'mentor') fetchMentorMetrics();
+        if (tabId === 'mentee') fetchMenteeMetrics();
+    }
+
+    // Endpoint integration routines
+    async function fetchEmployeeMetrics() {
+        try {
+            const response = await fetch('/api/dashboards/emp/');
+            const data = await response.json();
+
+            document.getElementById('stat-total-apps').innerText = data.total_applications || 0;
+            document.getElementById('stat-total-mentors').innerText = data.total_mentors || 0;
+            document.getElementById('stat-total-pairs').innerText = data.total_pairs || 0;
+            document.getElementById('stat-success-rate').innerText = `${data.outcomes?.success_rate || 0}%`;
+
+            const tableBody = document.getElementById('completed-cohorts-table');
+            if (data.completed_cohorts && data.completed_cohorts.length > 0) {
+                tableBody.innerHTML = data.completed_cohorts.map(c => `
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-slate-900">${c.name}</td>
+                            <td class="px-6 py-4 text-slate-600">${c.total_applicants}</td>
+                            <td class="px-6 py-4 text-slate-600">${c.accepted}</td>
+                            <td class="px-6 py-4 text-slate-600">${c.pairs_completed}</td>
+                            <td class="px-6 py-4 text-emerald-600 font-medium">${c.goals_achieved} achieved</td>
+                        </tr>
+                    `).join('');
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-slate-400 italic">No historical complete cohorts discovered inside database data storage.</td></tr>`;
+            }
+        } catch (err) {
+            console.error("Operational crash collecting employee metrics payload:", err);
+        }
+    }
+
+    async function fetchMentorMetrics() {
+        try {
+            // Using 1 as a generic mockup identifier parameter anchor
+            const response = await fetch('/api/dashboards/mentor/?mentor_id=1');
+            if (!response.ok) return;
+            const data = await response.json();
+
+            document.getElementById('mentor-stat-total').innerText = data.assigned_pairs_count || 0;
+            document.getElementById('mentor-stat-active').innerText = data.active_relationships || 0;
+            document.getElementById('mentor-stat-logged').innerText = data.logged_checkins_count || 0;
+            document.getElementById('mentor-stat-scheduled').innerText = data.scheduled_checkins_count || 0;
+        } catch(err) {
+            console.error("Operational crash processing mentor stats dashboard stream:", err);
+        }
+    }
+
+    async function fetchMenteeMetrics() {
+        try {
+            // Using 2 as a generic mockup identifier parameter anchor
+            const response = await fetch('/api/dashboards/mentee/?mentee_id=2');
+            if (!response.ok) return;
+            const data = await response.json();
+
+            document.getElementById('mentee-stat-status').innerText = data.pair_status || 'unassigned';
+            document.getElementById('mentee-stat-score').innerText = data.match_score || '0.0';
+            document.getElementById('mentee-stat-checkins').innerText = data.total_checkins_registered || 0;
+        } catch(err) {
+            console.error("Operational crash processing mentee data block query stream:", err);
+        }
+    }
+
+    async function triggerEngine(endpointUrl) {
+        try {
+            const response = await fetch(endpointUrl, { method: 'POST' });
+            const resData = await response.json();
+            alert(resData.message || "Action engine run completed successfully!");
+            if (document.getElementById('view-emp').classList.contains('hidden') === false) {
+                fetchEmployeeMetrics();
+            }
+        } catch(err) {
+            alert("Internal orchestration fault communicating with algorithmic scoring micro-engine.");
+        }
+    }
+
+    // Initialize display context node matrix on browser frame entry
+    window.addEventListener('DOMContentLoaded', () => {
+        switchTab('emp');
+    });
+</script>
+</body>
+</html>

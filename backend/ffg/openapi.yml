@@ -1,0 +1,1253 @@
+openapi: 3.0.3
+info:
+  title: FFG Mentorship Platform API
+  description: Complete OpenAPI contract specification for the FFG Corporate Mentorship Platform backend, documenting all model CRUD viewsets, custom workflow actions, and analytical dashboards.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+    description: Local Development Server
+tags:
+  - name: Cohorts
+  - name: Users
+  - name: Applications
+  - name: Matching
+  - name: Scoring
+  - name: Dashboards
+  - name: Resources
+  - name: Permissions
+paths:
+  /api/cohorts/:
+    get:
+      tags:
+        - Cohorts
+      summary: List all cohorts
+      responses:
+        '200':
+          description: A list of cohorts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cohort'
+    post:
+      tags:
+        - Cohorts
+      summary: Create a new cohort
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cohort'
+      responses:
+        '201':
+          description: Cohort created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cohort'
+  /api/cohorts/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Cohorts
+      summary: Retrieve a cohort
+      responses:
+        '200':
+          description: Cohort details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cohort'
+    put:
+      tags:
+        - Cohorts
+      summary: Update a cohort (Full)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cohort'
+      responses:
+        '200':
+          description: Cohort updated.
+    patch:
+      tags:
+        - Cohorts
+      summary: Update a cohort (Partial)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cohort'
+      responses:
+        '200':
+          description: Cohort updated partially.
+    delete:
+      tags:
+        - Cohorts
+      summary: Delete a cohort
+      responses:
+        '204':
+          description: Cohort deleted.
+  /api/cohorts/{cohort_id}/scoring/run/:
+    parameters:
+      - name: cohort_id
+        in: path
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Scoring
+      summary: Run scoring engine for a cohort
+      description: Current Status - Stub. Triggers calculations to evaluate application responses against scoring rules.
+      responses:
+        '200':
+          description: Scoring process completed or initialized.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: stub_triggered
+                  message:
+                    type: string
+                    example: Scoring engine execution is currently a stub implementation.
+  /api/cohorts/{cohort_id}/matching/run/:
+    parameters:
+      - name: cohort_id
+        in: path
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Matching
+      summary: Run matching engine for a cohort
+      description: Current Status - Implemented. Executes multi-parameter similarity cluster optimization logic, automatically committing new valid pairing records.
+      responses:
+        '200':
+          description: Matching engine optimization executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  pairs_generated:
+                    type: integer
+                    example: 12
+  /api/users/:
+    get:
+      tags:
+        - Users
+      summary: List all users
+      responses:
+        '200':
+          description: A list of platform operational user records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - Users
+      summary: Create a user record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created.
+  /api/users/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Users
+      summary: Retrieve user data
+      responses:
+        '200':
+          description: User record data details.
+    put:
+      tags:
+        - Users
+      summary: Update user data (Full)
+      responses:
+        '200':
+          description: User record updated.
+    patch:
+      tags:
+        - Users
+      summary: Update user data (Partial)
+      responses:
+        '200':
+          description: User record updated partially.
+    delete:
+      tags:
+        - Users
+      summary: Delete user data record
+      responses:
+        '204':
+          description: User deleted.
+  /api/mentor-profiles/:
+    get:
+      tags:
+        - Users
+      summary: List mentor profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MentorProfile'
+    post:
+      tags:
+        - Users
+      summary: Create a mentor profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MentorProfile'
+      responses:
+        '201':
+          description: Profile created.
+  /api/mentor-profiles/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Users
+      summary: Retrieve a mentor profile
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MentorProfile'
+    put:
+      tags:
+        - Users
+      summary: Update a mentor profile (Full)
+      responses:
+        '200':
+          description: Profile updated.
+    patch:
+      tags:
+        - Users
+      summary: Update a mentor profile (Partial)
+      responses:
+        '200':
+          description: Profile updated partially.
+    delete:
+      tags:
+        - Users
+      summary: Delete a mentor profile
+      responses:
+        '204':
+          description: Profile deleted.
+  /api/mentee-profiles/:
+    get:
+      tags:
+        - Users
+      summary: List mentee profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenteeProfile'
+    post:
+      tags:
+        - Users
+      summary: Create a mentee profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenteeProfile'
+      responses:
+        '201':
+          description: Profile created.
+  /api/mentee-profiles/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Users
+      summary: Retrieve a mentee profile
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenteeProfile'
+    put:
+      tags:
+        - Users
+      summary: Update a mentee profile (Full)
+      responses:
+        '200':
+          description: Profile updated.
+    patch:
+      tags:
+        - Users
+      summary: Update a mentee profile (Partial)
+      responses:
+        '200':
+          description: Profile updated partially.
+    delete:
+      tags:
+        - Users
+      summary: Delete a mentee profile
+      responses:
+        '204':
+          description: Profile deleted.
+  /api/form-configs/:
+    get:
+      tags:
+        - Applications
+      summary: List form configurations
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationFormConfig'
+    post:
+      tags:
+        - Applications
+      summary: Create a form configuration
+      responses:
+        '201':
+          description: Config created.
+  /api/form-configs/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Applications
+      summary: Retrieve a form configuration
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationFormConfig'
+    put:
+      tags:
+        - Applications
+      summary: Update form configuration (Full)
+      responses:
+        '200':
+          description: Config updated.
+    patch:
+      tags:
+        - Applications
+      summary: Update form configuration (Partial)
+      responses:
+        '200':
+          description: Config updated partially.
+    delete:
+      tags:
+        - Applications
+      summary: Delete form configuration
+      responses:
+        '204':
+          description: Config deleted.
+  /api/applications/:
+    get:
+      tags:
+        - Applications
+      summary: List applications
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+    post:
+      tags:
+        - Applications
+      summary: Create an application entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+      responses:
+        '201':
+          description: Application recorded.
+  /api/applications/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Applications
+      summary: Retrieve an application detail
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+    put:
+      tags:
+        - Applications
+      summary: Update application details (Full)
+      responses:
+        '200':
+          description: Application updated.
+    patch:
+      tags:
+        - Applications
+      summary: Update application details (Partial)
+      responses:
+        '200':
+          description: Application updated partially.
+    delete:
+      tags:
+        - Applications
+      summary: Delete an application
+      responses:
+        '204':
+          description: Application deleted.
+  /api/applications/{application_id}/submit/:
+    parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Applications
+      summary: Submit a pending application
+      description: Current Status - Implemented. Validates active entries against configs and transitions form lifecycle state to submitted.
+      responses:
+        '200':
+          description: Application state submitted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Application structural validation passed and finalized.
+  /api/applications/{application_id}/review/:
+    parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Applications
+      summary: Submit manager review for an application
+      description: Current Status - Implemented. Operational checkpoint gateway updating internal application review arrays.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - action
+              properties:
+                action:
+                  type: string
+                  enum: [approve, reject]
+                  example: approve
+                notes:
+                  type: string
+                  example: Meets background and team track goals.
+      responses:
+        '200':
+          description: Review action successfully recorded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  current_state:
+                    type: string
+                    example: approved
+  /api/scoring-rules/:
+    get:
+      tags:
+        - Scoring
+      summary: List scoring rules
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoringRule'
+    post:
+      tags:
+        - Scoring
+      summary: Create a scoring rule
+      responses:
+        '201':
+          description: Rule created.
+  /api/scoring-rules/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Scoring
+      summary: Retrieve a scoring rule
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoringRule'
+    put:
+      tags:
+        - Scoring
+      summary: Update a scoring rule (Full)
+      responses:
+        '200':
+          description: Rule updated.
+    patch:
+      tags:
+        - Scoring
+      summary: Update a scoring rule (Partial)
+      responses:
+        '200':
+          description: Rule updated partially.
+    delete:
+      tags:
+        - Scoring
+      summary: Delete a scoring rule
+      responses:
+        '204':
+          description: Rule removed.
+  /api/matching-rules/:
+    get:
+      tags:
+        - Matching
+      summary: List matching rules
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MatchingRule'
+    post:
+      tags:
+        - Matching
+      summary: Create a matching rule
+      responses:
+        '201':
+          description: Matching weights initialized.
+  /api/matching-rules/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Matching
+      summary: Retrieve matching weights configuration
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchingRule'
+    put:
+      tags:
+        - Matching
+      summary: Update matching rule (Full)
+      responses:
+        '200':
+          description: Rule updated.
+    patch:
+      tags:
+        - Matching
+      summary: Update matching rule (Partial)
+      responses:
+        '200':
+          description: Rule updated partially.
+    delete:
+      tags:
+        - Matching
+      summary: Delete a matching rule configuration
+      responses:
+        '204':
+          description: Rule deleted.
+  /api/pairs/:
+    get:
+      tags:
+        - Matching
+      summary: List active mentor-mentee relationship records
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MentorMenteePair'
+    post:
+      tags:
+        - Matching
+      summary: Create an arbitrary relationship pair
+      responses:
+        '201':
+          description: Pair committed.
+  /api/pairs/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Matching
+      summary: Retrieve relationship record details
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MentorMenteePair'
+    put:
+      tags:
+        - Matching
+      summary: Update pair structure data (Full)
+      responses:
+        '200':
+          description: Pair updated.
+    patch:
+      tags:
+        - Matching
+      summary: Update pair structure data (Partial)
+      responses:
+        '200':
+          description: Pair updated partially.
+    delete:
+      tags:
+        - Matching
+      summary: Dissolve pair record association
+      responses:
+        '204':
+          description: Pair removed.
+  /api/checkins/:
+    get:
+      tags:
+        - Dashboards
+      summary: List audit log engagement check-ins
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckIn'
+    post:
+      tags:
+        - Dashboards
+      summary: Log a programmatic participant milestone checkpoint
+      responses:
+        '201':
+          description: Log verified and stored.
+  /api/checkins/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Dashboards
+      summary: Retrieve an individual check-in history record
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckIn'
+    put:
+      tags:
+        - Dashboards
+      summary: Update check-in record parameters (Full)
+      responses:
+        '200':
+          description: Check-in updated.
+    patch:
+      tags:
+        - Dashboards
+      summary: Update check-in record parameters (Partial)
+      responses:
+        '200':
+          description: Check-in updated partially.
+    delete:
+      tags:
+        - Dashboards
+      summary: Delete a check-in record
+      responses:
+        '204':
+          description: Log context destroyed.
+  /api/resources/:
+    get:
+      tags:
+        - Resources
+      summary: List shared document tracking links
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+    post:
+      tags:
+        - Resources
+      summary: Save a new central program resource asset
+      responses:
+        '201':
+          description: Metadata saved.
+  /api/resources/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Resources
+      summary: Retrieve onboarding documentation properties
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+    put:
+      tags:
+        - Resources
+      summary: Update resource parameters (Full)
+      responses:
+        '200':
+          description: Resource updated.
+    patch:
+      tags:
+        - Resources
+      summary: Update resource parameters (Partial)
+      responses:
+        '200':
+          description: Resource updated partially.
+    delete:
+      tags:
+        - Resources
+      summary: Evict assets row registry fields
+      responses:
+        '204':
+          description: Resource metadata cleared.
+  /api/permissions/:
+    get:
+      tags:
+        - Permissions
+      summary: View current system authority role indexes
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RolePermission'
+    post:
+      tags:
+        - Permissions
+      summary: Map a new role permission boundary configuration
+      responses:
+        '201':
+          description: Operational boundary committed.
+  /api/permissions/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Permissions
+      summary: Inspect custom object-level target authorization bounds
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RolePermission'
+    put:
+      tags:
+        - Permissions
+      summary: Update custom scope limits (Full)
+      responses:
+        '200':
+          description: Permissions updated.
+    patch:
+      tags:
+        - Permissions
+      summary: Update custom scope limits (Partial)
+      responses:
+        '200':
+          description: Permissions updated partially.
+    delete:
+      tags:
+        - Permissions
+      summary: Erase role permission configurations row
+      responses:
+        '204':
+          description: Authority boundaries altered.
+  /dashboard/emp/:
+    get:
+      tags:
+        - Dashboards
+      summary: Retrieve operational overview tracking diagnostics for Program Managers
+      responses:
+        '200':
+          description: Real-time management aggregations payload tracking cohorts, forms metrics, and total pairs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active_cohorts_count:
+                    type: integer
+                    example: 3
+                  total_applications_received:
+                    type: integer
+                    example: 142
+                  pending_reviews_count:
+                    type: integer
+                    example: 24
+                  successful_matches_total:
+                    type: integer
+                    example: 58
+  /dashboard/mentor/:
+    get:
+      tags:
+        - Dashboards
+      summary: Retrieve metrics for an authenticated user active as a Program Mentor
+      responses:
+        '200':
+          description: Statistics payload mapping assigned pair parameters and scheduled completion deadlines.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assigned_mentees:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        pair_id:
+                          type: integer
+                          example: 41
+                        mentee_name:
+                          type: string
+                          example: Alice Smith
+                        track:
+                          type: string
+                          example: Software Engineering
+                        completed_checkins:
+                          type: integer
+                          example: 4
+                        pending_milestones_count:
+                          type: integer
+                          example: 2
+  /dashboard/mentee/:
+    get:
+      tags:
+        - Dashboards
+      summary: Retrieve confirmation status data metrics for a participant Mentee account
+      responses:
+        '200':
+          description: Portal information array detailing structural match confirmation flags and central resource downloads.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  match_status:
+                    type: string
+                    enum: [unmatched, pending, matched]
+                    example: matched
+                  assigned_mentor:
+                    type: object
+                    nullable: true
+                    properties:
+                      mentor_name:
+                        type: string
+                        example: Robert Evans
+                      mentor_email:
+                        type: string
+                        example: r.evans@company.com
+                  program_resources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          example: Onboarding Roadmap v1
+                        download_url:
+                          type: string
+                          example: /api/resources/12/download/
+components:
+  schemas:
+    Cohort:
+      type: object
+      required:
+        - name
+        - start_date
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+          nullable: true
+        is_active:
+          type: boolean
+          default: true
+    User:
+      type: object
+      required:
+        - username
+        - email
+        - role
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        role:
+          type: string
+          enum: [manager, mentor, mentee]
+          example: mentee
+    MentorProfile:
+      type: object
+      required:
+        - user
+        - core_competencies
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          description: User ID link
+        job_title:
+          type: string
+          maxLength: 255
+        department:
+          type: string
+          maxLength: 255
+        core_competencies:
+          type: object
+          description: Key capability matrix schema JSON array fields.
+        max_mentees:
+          type: integer
+          default: 2
+    MenteeProfile:
+      type: object
+      required:
+        - user
+        - growth_objectives
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          description: User ID link
+        job_title:
+          type: string
+          maxLength: 255
+        department:
+          type: string
+          maxLength: 255
+        growth_objectives:
+          type: object
+          description: Development target keys matrix mapping metadata properties JSON array.
+    ApplicationFormConfig:
+      type: object
+      required:
+        - cohort
+        - fields_layout
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cohort:
+          type: integer
+          description: Target Cohort ID link
+        form_type:
+          type: string
+          enum: [mentor, mentee]
+        fields_layout:
+          type: object
+          description: Structural array mapping inputs components JSON data structures.
+    Application:
+      type: object
+      required:
+        - user
+        - cohort
+        - form_responses
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+        cohort:
+          type: integer
+        status:
+          type: string
+          enum: [draft, submitted, approved, rejected]
+          default: draft
+        form_responses:
+          type: object
+          description: Multi-field survey response value collection mappings JSON payload.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    ScoringRule:
+      type: object
+      required:
+        - cohort
+        - rule_name
+        - logic_config
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cohort:
+          type: integer
+        rule_name:
+          type: string
+          maxLength: 255
+        logic_config:
+          type: object
+          description: Conditional logical threshold weights properties mapping configuration database objects.
+        weight:
+          type: number
+          format: float
+          default: 1.0
+    MatchingRule:
+      type: object
+      required:
+        - cohort
+        - criteria_key
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cohort:
+          type: integer
+        criteria_key:
+          type: string
+          maxLength: 100
+        weight:
+          type: number
+          format: float
+          default: 1.0
+        matching_type:
+          type: string
+          enum: [exact, partial, matrix_similarity]
+          default: exact
+    MentorMenteePair:
+      type: object
+      required:
+        - cohort
+        - mentor
+        - mentee
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cohort:
+          type: integer
+        mentor:
+          type: integer
+          description: Mentor Profile ID reference
+        mentee:
+          type: integer
+          description: Mentee Profile ID reference
+        match_score:
+          type: number
+          format: float
+          nullable: true
+        is_active:
+          type: boolean
+          default: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    CheckIn:
+      type: object
+      required:
+        - pair
+        - checkin_date
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        pair:
+          type: integer
+          description: Target Active Relationship Pair ID link
+        checkin_date:
+          type: string
+          format: date
+        notes:
+          type: string
+          nullable: true
+        completed_milestones:
+          type: object
+          description: Structured array dictionary auditing session programmatic parameters checklist items.
+    Resource:
+      type: object
+      required:
+        - title
+        - file_url
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+        file_url:
+          type: string
+          maxLength: 500
+        target_role:
+          type: string
+          enum: [all, mentor, mentee, manager]
+          default: all
+    RolePermission:
+      type: object
+      required:
+        - role_name
+        - access_scope
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        role_name:
+          type: string
+          maxLength: 100
+        access_scope:
+          type: string
+          maxLength: 100
+        custom_rules_matrix:
+          type: object
+          description: Granular JSON dictionary object controlling object-level protection layer constraints boundaries.

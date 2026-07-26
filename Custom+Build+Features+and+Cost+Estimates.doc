@@ -1,0 +1,592 @@
+Date: Mon, 20 Jul 2026 14:21:06 +0000 (UTC)
+Message-ID: <1500307023.1.1784557266746@aa8c34857c46>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_0_2011396448.1784557266727"
+
+------=_Part_0_2011396448.1784557266727
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Custom Build Features and Cost Estimates</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Custom Build Features and Cost Estimates</h1>
+    <div class=3D"Section1">
+        <p local-id=3D"7b7cbb879069">Note: Below costs have been estimated =
+approximately, this may vary based on storage/conversations.</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1470" data-layout=3D"center" data-local-id=3D"53=
+ea34ce6e67" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 65.0px;">
+<col style=3D"width: 255.0px;">
+<col style=3D"width: 146.0px;">
+<col style=3D"width: 145.0px;">
+<col style=3D"width: 187.0px;">
+<col style=3D"width: 155.0px;">
+<col style=3D"width: 506.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"b14ee0ee6e15">
+<th data-local-id=3D"d5d929024bb1" class=3D"confluenceTh">
+<p local-id=3D"d15e031d3337"><strong>Sl.No</strong></p></th>
+<th data-local-id=3D"a952a252533f" class=3D"confluenceTh">
+<p local-id=3D"b92bcd73ff5d"><strong>Feature/Line Item</strong></p></th>
+<th data-local-id=3D"946ae8da018b" class=3D"confluenceTh">
+<p local-id=3D"1e3899c6cc8c"><strong>Single AZ + No-RAG (Rule/FTS)</strong>=
+</p></th>
+<th data-local-id=3D"f903c866454d" class=3D"confluenceTh">
+<p local-id=3D"efc1f2d7ce54"><strong>Single AZ + RAG</strong></p></th>
+<th data-local-id=3D"e511e14e4cba" class=3D"confluenceTh">
+<p local-id=3D"b0a98c8fa8b8"><strong>Multi AZ (DB/Redis) + No RAG</strong><=
+/p></th>
+<th data-local-id=3D"e0567b305be6" class=3D"confluenceTh">
+<p local-id=3D"1bc0d61f3e04"><strong>Multi AZ (DB/Redis) + RAG</strong></p>=
+</th>
+<th data-local-id=3D"c5ef56ed27c2" class=3D"confluenceTh">
+<p local-id=3D"88642d4fee14"><strong>Details</strong></p></th>
+</tr>
+<tr data-local-id=3D"5e7c317c884e">
+<td data-local-id=3D"87de464e50c9" class=3D"confluenceTd">
+<p local-id=3D"a7a0f8987ac7">1</p></td>
+<td data-local-id=3D"eca4c49944d8" class=3D"confluenceTd">
+<p local-id=3D"a40b379c8f73"><strong>Hosting Platform (UK, no ALB)</strong>=
+</p></td>
+<td data-local-id=3D"181cb2bbc1f3" class=3D"confluenceTd">
+<p local-id=3D"b823f3916a28"><strong>=E2=82=B912000-=E2=82=B916000</strong>=
+</p></td>
+<td data-local-id=3D"a207676401d8" class=3D"confluenceTd">
+<p local-id=3D"1c33ec72c044"><strong>=E2=82=B912000-=E2=82=B916000</strong>=
+</p></td>
+<td data-local-id=3D"c77db9e5ec6e" class=3D"confluenceTd">
+<p local-id=3D"5e161c67a771"><strong>=E2=82=B918000-=E2=82=B925000</strong>=
+</p></td>
+<td data-local-id=3D"a7bf19df5eef" class=3D"confluenceTd">
+<p local-id=3D"c1b3b70098e4"><strong>=E2=82=B918000-=E2=82=B925000</strong>=
+</p></td>
+<td data-local-id=3D"ee7a04b847fa" class=3D"confluenceTd">
+<p local-id=3D"85b38a0526d7"><strong>AWS Hosting</strong></p></td>
+</tr>
+<tr data-local-id=3D"c233932e4900">
+<td data-local-id=3D"3a2056d3c1a4" class=3D"confluenceTd">
+<p local-id=3D"874a3eaff7ee">2</p></td>
+<td data-local-id=3D"357257b529e9" class=3D"confluenceTd">
+<p local-id=3D"07a92117f0f2">Website Platform with multiple Logins</p></td>
+<td data-local-id=3D"e74e55505e04" class=3D"confluenceTd">
+<p local-id=3D"b9fe52515964">=E2=82=B90</p></td>
+<td data-local-id=3D"23b39d45dfa0" class=3D"confluenceTd">
+<p local-id=3D"0af3cebebf39">=E2=82=B90</p></td>
+<td data-local-id=3D"d39ad6a76f82" class=3D"confluenceTd">
+<p local-id=3D"6ce07feffc5b">=E2=82=B90</p></td>
+<td data-local-id=3D"e47a6ce448e4" class=3D"confluenceTd">
+<p local-id=3D"a3938328798e">=E2=82=B90</p></td>
+<td data-local-id=3D"76ee299cd8f6" class=3D"confluenceTd">
+<p local-id=3D"82fd6ce9fe14">Django auth + custom user roles + JWT tokens +=
+ React role-based routing</p></td>
+</tr>
+<tr data-local-id=3D"fdba551f7b9a">
+<td data-local-id=3D"53cd02a27afc" class=3D"confluenceTd">
+<p local-id=3D"2e381c76fc0f">3</p></td>
+<td data-local-id=3D"366428082d77" class=3D"confluenceTd">
+<p local-id=3D"8f918d5d4577">Mentor-Mentee Matching</p></td>
+<td data-local-id=3D"d9aa7f11-288e-4999-ace8-083f5f69dcad" class=3D"conflue=
+nceTd">
+<p local-id=3D"79c0479920da">=E2=82=B90</p></td>
+<td data-local-id=3D"c927d159-cb54-448d-ba81-2ab97dcab9ce" class=3D"conflue=
+nceTd">
+<p local-id=3D"d8dce3ac7f94">=E2=82=B90</p></td>
+<td data-local-id=3D"a8a4a215-faa1-4109-8ae9-d396b9aabcf5" class=3D"conflue=
+nceTd">
+<p local-id=3D"c2f77af1a6ec">=E2=82=B90</p></td>
+<td data-local-id=3D"27597431-7e07-4af1-b279-97cbf065f058" class=3D"conflue=
+nceTd">
+<p local-id=3D"0ac803a31050">=E2=82=B90</p></td>
+<td data-local-id=3D"ce3dac53402e" class=3D"confluenceTd">
+<p local-id=3D"f87f23136dac">Custom matching logic, runs inside existing ap=
+p/database</p></td>
+</tr>
+<tr data-local-id=3D"b939c73862b8">
+<td data-local-id=3D"32e54fc5acf3" class=3D"confluenceTd">
+<p local-id=3D"1b8fab26d235">4</p></td>
+<td data-local-id=3D"3556a4267694" class=3D"confluenceTd">
+<p local-id=3D"7ca4225f6c7a">Dashboard (React Charts)</p></td>
+<td data-local-id=3D"89b88e7b-7db9-4781-aa6f-54c32054fe03" class=3D"conflue=
+nceTd">
+<p local-id=3D"b8e4df749516">=E2=82=B90</p></td>
+<td data-local-id=3D"4caed6f0-b4d2-4c57-8f01-a5c3fd5dbc56" class=3D"conflue=
+nceTd">
+<p local-id=3D"fd2ad964927a">=E2=82=B90</p></td>
+<td data-local-id=3D"a8cc9149-1943-4dfa-967d-620446922fe9" class=3D"conflue=
+nceTd">
+<p local-id=3D"da2f40981f7f">=E2=82=B90</p></td>
+<td data-local-id=3D"cb446e75-0b4f-4327-8e44-21ebeca193bd" class=3D"conflue=
+nceTd">
+<p local-id=3D"cc2ce74fa7cc">=E2=82=B90</p></td>
+<td data-local-id=3D"ac07444297c9" class=3D"confluenceTd">
+<p local-id=3D"205238282eb9">React Dashboard with OSS Charting (e.g. Chart.=
+js, Recharts. No power BI tools included</p></td>
+</tr>
+<tr data-local-id=3D"b54dacd66c0c">
+<td data-local-id=3D"77ec929ebcad" class=3D"confluenceTd">
+<p local-id=3D"7de76a4ec8d7">5</p></td>
+<td data-local-id=3D"131338167fdb" class=3D"confluenceTd">
+<p local-id=3D"60ca0c0d3b6b">Resource Search (Postgress full-text)</p></td>
+<td data-local-id=3D"1e8498cc-0d46-4af8-9896-fe6390e5a44a" class=3D"conflue=
+nceTd">
+<p local-id=3D"b2e5fe99020d">=E2=82=B90</p></td>
+<td data-local-id=3D"670897ae-4095-4f4c-a6e5-14030552c561" class=3D"conflue=
+nceTd">
+<p local-id=3D"78497410c904">=E2=82=B90</p></td>
+<td data-local-id=3D"7d7a49da-a666-44e7-8b56-364f3ceb4e16" class=3D"conflue=
+nceTd">
+<p local-id=3D"aafbaaffd42f">=E2=82=B90</p></td>
+<td data-local-id=3D"1033ffd1-c070-4540-8bb6-4fbf3339eaa0" class=3D"conflue=
+nceTd">
+<p local-id=3D"67d7551eb1d0">=E2=82=B90</p></td>
+<td data-local-id=3D"3fbae68687c2" class=3D"confluenceTd">
+<p local-id=3D"62d308386ec3">PostgreSQL FTS (tsvector, tsquery, GIN indexes=
+) + React Seach UI. No opensearch</p></td>
+</tr>
+<tr data-local-id=3D"2ecca47d7d05">
+<td data-local-id=3D"e5096bbc17b0" class=3D"confluenceTd">
+<p local-id=3D"df9348dbdcac">6</p></td>
+<td data-local-id=3D"a56c7c0e3fde" class=3D"confluenceTd">
+<p local-id=3D"ec6f2690fcf0">Application Intake</p></td>
+<td data-local-id=3D"b34f7e06-f626-4e28-aabe-ac3d68effb35" class=3D"conflue=
+nceTd">
+<p local-id=3D"d03ff06d4ae7">=E2=82=B90</p></td>
+<td data-local-id=3D"e6319026-0fc0-4d76-ba11-370c577c3d15" class=3D"conflue=
+nceTd">
+<p local-id=3D"71cbfefa2e81">=E2=82=B90</p></td>
+<td data-local-id=3D"622e94a0-f7ab-4bde-adf8-319294cbbeec" class=3D"conflue=
+nceTd">
+<p local-id=3D"bec874276227">=E2=82=B90</p></td>
+<td data-local-id=3D"0049fb0a-2252-4ec8-9760-b9a0d76f109c" class=3D"conflue=
+nceTd">
+<p local-id=3D"318193710005">=E2=82=B90</p></td>
+<td data-local-id=3D"afe2347d07cb" class=3D"confluenceTd">
+<p local-id=3D"f2795e0613d4">Custom React Forms + Django back-end processin=
+g. Standard Validations</p></td>
+</tr>
+<tr data-local-id=3D"68b3991718ad">
+<td data-local-id=3D"b0e6cd3623f7" class=3D"confluenceTd">
+<p local-id=3D"424b3109f2f7">7</p></td>
+<td data-local-id=3D"db31e62be590" class=3D"confluenceTd">
+<p local-id=3D"7f6b431cfdf6">Check-in Tracking</p></td>
+<td data-local-id=3D"97062790-35c4-4111-be96-f7ad170adc37" class=3D"conflue=
+nceTd">
+<p local-id=3D"c8cf2a56c2a0">=E2=82=B90</p></td>
+<td data-local-id=3D"67783eb6-9c80-4783-9120-e23a08827fcc" class=3D"conflue=
+nceTd">
+<p local-id=3D"9880571292f4">=E2=82=B90</p></td>
+<td data-local-id=3D"d5b1c51b-001a-45b1-aa11-5f96ec34b625" class=3D"conflue=
+nceTd">
+<p local-id=3D"fd49a5355e6c">=E2=82=B90</p></td>
+<td data-local-id=3D"f2807730-9851-4f16-88d4-5c1792d7f897" class=3D"conflue=
+nceTd">
+<p local-id=3D"0f3e44928241">=E2=82=B90</p></td>
+<td data-local-id=3D"d6fc3de9b932" class=3D"confluenceTd">
+<p local-id=3D"cf7185a8d886">Scheduled remainders + tracking module (if cel=
+ery is chosen then celery scheduler or simple scheduler)</p></td>
+</tr>
+<tr data-local-id=3D"f65801ee5340">
+<td data-local-id=3D"6f891dcbf364" class=3D"confluenceTd">
+<p local-id=3D"e29c3a51588b">8</p></td>
+<td data-local-id=3D"0b544f26b4f2" class=3D"confluenceTd">
+<p local-id=3D"f64336a6cbd4">Recommendation Score (Weighted Scoring)</p></t=
+d>
+<td data-local-id=3D"6c2466c7-a322-4629-953d-e121e8032d28" class=3D"conflue=
+nceTd">
+<p local-id=3D"6de34e9d4712">=E2=82=B90</p></td>
+<td data-local-id=3D"102d57fb-a81f-4491-b67f-85af33a9f312" class=3D"conflue=
+nceTd">
+<p local-id=3D"a3eaa340a66d">=E2=82=B90</p></td>
+<td data-local-id=3D"56fe9a05-5035-49de-b144-5b221ae72a6b" class=3D"conflue=
+nceTd">
+<p local-id=3D"e5943684ac69">=E2=82=B90</p></td>
+<td data-local-id=3D"c65c9a86-ec9c-437d-bb8b-2f78820a65ae" class=3D"conflue=
+nceTd">
+<p local-id=3D"f95aa3928c60">=E2=82=B90</p></td>
+<td data-local-id=3D"fba319704be6" class=3D"confluenceTd">
+<p local-id=3D"7da8eb5f8f07">Weighed scoring (non-ML), runs inside app.</p>=
+</td>
+</tr>
+<tr data-local-id=3D"c81a4986fc99">
+<td data-local-id=3D"1b3a217bed57" class=3D"confluenceTd">
+<p local-id=3D"49877b60b280">9</p></td>
+<td data-local-id=3D"d17852adb5e6" class=3D"confluenceTd">
+<p local-id=3D"cab0b1e788d2">Data Purge</p></td>
+<td data-local-id=3D"175dbd18-d335-4535-9118-c76be8fc1aaf" class=3D"conflue=
+nceTd">
+<p local-id=3D"c73d26d33f57">=E2=82=B90</p></td>
+<td data-local-id=3D"fccdc4d4-9bdf-492a-93c3-fe8bf95062d8" class=3D"conflue=
+nceTd">
+<p local-id=3D"e52f14bdf20f">=E2=82=B90</p></td>
+<td data-local-id=3D"4bff6367-0382-443e-9a67-71a2119753af" class=3D"conflue=
+nceTd">
+<p local-id=3D"5de51ced92e3">=E2=82=B90</p></td>
+<td data-local-id=3D"6042619a-0f1c-4a99-bab0-c0f8f2b27af2" class=3D"conflue=
+nceTd">
+<p local-id=3D"91c8b4cd3c12">=E2=82=B90</p></td>
+<td data-local-id=3D"49eb541ebe5d" class=3D"confluenceTd">
+<p local-id=3D"20c002414fb3">Scheduled purge jobs (if celery is chosen then=
+ celery scheduler or simple scheduler)</p></td>
+</tr>
+<tr data-local-id=3D"95726a0fc3c3">
+<td data-local-id=3D"fdfb97ee93a7" class=3D"confluenceTd">
+<p local-id=3D"e8d941adb230">10</p></td>
+<td data-local-id=3D"da2ee541298d" class=3D"confluenceTd">
+<p local-id=3D"1013a37a1c59">Scheduler Option-A: Celery worker + Redis brok=
+er</p></td>
+<td data-local-id=3D"d77a5cc99075" class=3D"confluenceTd">
+<p local-id=3D"610658cf302b">=E2=82=B92500-=E2=82=B94000</p></td>
+<td data-local-id=3D"65c244db0d4d" class=3D"confluenceTd">
+<p local-id=3D"aaa79272a6d2">=E2=82=B92500-=E2=82=B94000</p></td>
+<td data-local-id=3D"e6a009811790" class=3D"confluenceTd">
+<p local-id=3D"5b5f0bfeb89a">=E2=82=B94000-=E2=82=B96500</p></td>
+<td data-local-id=3D"388f2d9bb90f" class=3D"confluenceTd">
+<p local-id=3D"e697a8fe0fa8">=E2=82=B94000-=E2=82=B96500</p></td>
+<td data-local-id=3D"43b084961f4e" class=3D"confluenceTd">
+<p local-id=3D"e9ad3f269407">Celery worker(s) + Redis/ElastiCache as broker=
+. Better retries/queries. Extra infra needed</p></td>
+</tr>
+<tr data-local-id=3D"f3dd7d8e9f18">
+<td data-local-id=3D"fec816035c1e" class=3D"confluenceTd">
+<p local-id=3D"08c05c977ae5">11</p></td>
+<td data-local-id=3D"7d5789f567d7" class=3D"confluenceTd">
+<p local-id=3D"663d60a3eb73">Scheduler Option-B: Simple Scheduler (no redis=
+ broker)</p></td>
+<td data-local-id=3D"de39b38dbcfe" class=3D"confluenceTd">
+<p local-id=3D"0de4c7928599">=E2=82=B9500-=E2=82=B91500</p></td>
+<td data-local-id=3D"7627e5afda3c" class=3D"confluenceTd">
+<p local-id=3D"46446d6bd09e">=E2=82=B9500-=E2=82=B91500</p></td>
+<td data-local-id=3D"38991fabbad7" class=3D"confluenceTd">
+<p local-id=3D"dbb9c16a3f36">=E2=82=B9700-=E2=82=B92000</p></td>
+<td data-local-id=3D"0d09be811368" class=3D"confluenceTd">
+<p local-id=3D"05fee272dea4">=E2=82=B9700-=E2=82=B92000</p></td>
+<td data-local-id=3D"e3602f3f3e07" class=3D"confluenceTd">
+<p local-id=3D"23228014f70b">Simple scheduled execution without queue broke=
+r (e.g. corn/ scheduled task). Cheapest, fewer reliability features than Ce=
+lery</p></td>
+</tr>
+<tr data-local-id=3D"c99c59f2af5d">
+<td data-local-id=3D"e345d40d84fb" class=3D"confluenceTd">
+<p local-id=3D"840ff1d37b60">12</p></td>
+<td data-local-id=3D"4dbd1e492027" class=3D"confluenceTd">
+<p local-id=3D"96903a7f10dc">Email Automation (SES typical)</p></td>
+<td data-local-id=3D"be013168d4f6" class=3D"confluenceTd">
+<p local-id=3D"e2b1b08c4737">=E2=82=B9200-=E2=82=B91500</p></td>
+<td data-local-id=3D"1c9faa9bca12" class=3D"confluenceTd">
+<p local-id=3D"3c5fc0cb2f3f">=E2=82=B9200-=E2=82=B91500</p></td>
+<td data-local-id=3D"0db13f521ff0" class=3D"confluenceTd">
+<p local-id=3D"67444439eecb">=E2=82=B9200-=E2=82=B91500</p></td>
+<td data-local-id=3D"f72f6523f40c" class=3D"confluenceTd">
+<p local-id=3D"bf09a0303e61">=E2=82=B9200-=E2=82=B91500</p></td>
+<td data-local-id=3D"40a1f0695702" class=3D"confluenceTd">
+<p local-id=3D"efa28aaec4c9">Automated emails via AWS SES (or equivalent SM=
+TP). Low-moderate email volume</p></td>
+</tr>
+<tr data-local-id=3D"0568ff9a21e6">
+<td data-local-id=3D"6d2b852afd1e" class=3D"confluenceTd">
+<p local-id=3D"ca0db3b417eb">13</p></td>
+<td data-local-id=3D"b75e40b4e954" class=3D"confluenceTd">
+<p local-id=3D"f34e9aced76e"><strong>FAQ Chatbot - serving @~3000 conversat=
+ions/month</strong></p></td>
+<td data-local-id=3D"ff0ffc3f1ee9" class=3D"confluenceTd">
+<p local-id=3D"c1266cb2e92d"><strong>=E2=82=B91000-=E2=82=B92000</strong></=
+p></td>
+<td data-local-id=3D"18f7a91fecb2" class=3D"confluenceTd">
+<p local-id=3D"6885de7fd257"><strong>=E2=82=B96000-=E2=82=B914000</strong><=
+/p></td>
+<td data-local-id=3D"e8aec775a99c" class=3D"confluenceTd">
+<p local-id=3D"89435dc1c7ba"><strong>=E2=82=B91000-=E2=82=B92000</strong></=
+p></td>
+<td data-local-id=3D"27f490ed12f6" class=3D"confluenceTd">
+<p local-id=3D"6c0ac30b9070"><strong>=E2=82=B96000-=E2=82=B914000</strong><=
+/p></td>
+<td data-local-id=3D"d761c18d4116" class=3D"confluenceTd">
+<p local-id=3D"460de911d1df">100 conv/day, responses constrained to the con=
+tent, latency acceptable.</p>
+<p local-id=3D"41783b8d7334"><strong>100 conv/day means - 100 separate chat=
+ sessions per day across whole system not per user. </strong></p>
+<p local-id=3D"ed37e595fffa">Conversation =3D One user opens chatbot and co=
+mpletes a short interactions thread on a topic.</p></td>
+</tr>
+<tr data-local-id=3D"63a46e3c7e4a">
+<td data-local-id=3D"d02bb9ad0e13" class=3D"confluenceTd">
+<p local-id=3D"3ef2c74da644">14</p></td>
+<td data-local-id=3D"a02e9474f041" class=3D"confluenceTd">
+<p local-id=3D"50c84953d464">Ongoing content updates (15 transcripts/month)=
+</p></td>
+<td data-local-id=3D"13e31b7a354c" class=3D"confluenceTd">
+<p local-id=3D"6ef8e36a7e22">=E2=82=B90-=E2=82=B9500</p></td>
+<td data-local-id=3D"fdb194743da5" class=3D"confluenceTd">
+<p local-id=3D"f583c74dcdcb">=E2=82=B9800-2500</p></td>
+<td data-local-id=3D"b6f116ef2f12" class=3D"confluenceTd">
+<p local-id=3D"bd6fb93e061b">=E2=82=B90-500</p></td>
+<td data-local-id=3D"182cff4f9068" class=3D"confluenceTd">
+<p local-id=3D"f53cc0270dac">=E2=82=B9800-2500</p></td>
+<td data-local-id=3D"93d59fb71dd4" class=3D"confluenceTd">
+<p local-id=3D"78466cc08a5f">Upload+store+index/curate content. 5 Videos/up=
+load. 3 uploads/month. compressed transcripts (5 pages/video)</p></td>
+</tr>
+<tr data-local-id=3D"6f323ed8bb7e">
+<td data-local-id=3D"0446c2076146" class=3D"confluenceTd">
+<p local-id=3D"ad9af0083c8a">15</p></td>
+<td data-local-id=3D"4c4a05c7a20f" class=3D"confluenceTd">
+<p local-id=3D"29d47eb0c51a">Estimated total (monthly) with Celery+Redis</p=
+></td>
+<td data-local-id=3D"c7dbbd71715b" class=3D"confluenceTd">
+<p local-id=3D"6d14f6066f5c">=E2=82=B917000-=E2=82=B924000</p></td>
+<td data-local-id=3D"b9287f838817" class=3D"confluenceTd">
+<p local-id=3D"a48f3563d714">=E2=82=B922000-=E2=82=B939000</p></td>
+<td data-local-id=3D"0cd4b4ddddef" class=3D"confluenceTd">
+<p local-id=3D"74043fe5dd06">=E2=82=B924000-=E2=82=B936000</p></td>
+<td data-local-id=3D"36edd1c42eae" class=3D"confluenceTd">
+<p local-id=3D"b4f32ca2cbf2">=E2=82=B929000-=E2=82=B950000</p></td>
+<td data-local-id=3D"429f74987e0f" class=3D"confluenceTd">
+<p local-id=3D"272297ced7ab"></p></td>
+</tr>
+<tr data-local-id=3D"480c373490b4">
+<td data-local-id=3D"70bbb1b89845" class=3D"confluenceTd">
+<p local-id=3D"8cef03592ac5">16</p></td>
+<td data-local-id=3D"4a8e9602bde0" class=3D"confluenceTd">
+<p local-id=3D"a81650914085">Estimated total (monthly) with simple schedule=
+r</p></td>
+<td data-local-id=3D"d2c3f6413f0b" class=3D"confluenceTd">
+<p local-id=3D"c23d92b5fe9d">=E2=82=B915000-=E2=82=B921500</p></td>
+<td data-local-id=3D"5cef84fbf9e7" class=3D"confluenceTd">
+<p local-id=3D"58b705b13842">=E2=82=B920000-=E2=82=B937000</p></td>
+<td data-local-id=3D"8ab9f335fb96" class=3D"confluenceTd">
+<p local-id=3D"b2a1e56e26c5">=E2=82=B921000-=E2=82=B931500</p></td>
+<td data-local-id=3D"be4189417d47" class=3D"confluenceTd">
+<p local-id=3D"ca4db302b1f8">=E2=82=B926000-=E2=82=B945500</p></td>
+<td data-local-id=3D"9e20655d6197" class=3D"confluenceTd">
+<p local-id=3D"83a9d8ae31b8"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"31417845711c"></p>
+    </div>
+</body>
+</html>
+------=_Part_0_2011396448.1784557266727--

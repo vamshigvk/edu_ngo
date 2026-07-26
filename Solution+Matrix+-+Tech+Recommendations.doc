@@ -1,0 +1,711 @@
+Date: Mon, 20 Jul 2026 14:22:52 +0000 (UTC)
+Message-ID: <1969429772.19.1784557372079@daab989fc0cb>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_18_368041954.1784557372078"
+
+------=_Part_18_368041954.1784557372078
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Solution Matrix - Tech Recommendations</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Solution Matrix - Tech Recommendations</h1>
+    <div class=3D"Section1">
+        <div class=3D"table-wrap">
+<style>[data-colorid=3Dkazzzk99hf]{color:#ff991f} html[data-color-mode=3Dda=
+rk] [data-colorid=3Dkazzzk99hf]{color:#e07a00}[data-colorid=3Dtlhb1w2h1v]{c=
+olor:#ff991f} html[data-color-mode=3Ddark] [data-colorid=3Dtlhb1w2h1v]{colo=
+r:#e07a00}[data-colorid=3Dz4qm4ztrho]{color:#ff991f} html[data-color-mode=
+=3Ddark] [data-colorid=3Dz4qm4ztrho]{color:#e07a00}[data-colorid=3Dxang6z3b=
+9i]{color:#ff991f} html[data-color-mode=3Ddark] [data-colorid=3Dxang6z3b9i]=
+{color:#e07a00}</style>
+<table data-table-width=3D"1695" data-layout=3D"center" data-local-id=3D"53=
+98f71e-8535-47a1-a080-323a234d69cb" class=3D"confluenceTable">
+<colgroup>
+<col>
+<col style=3D"width: 166.0px;">
+<col style=3D"width: 288.0px;">
+<col style=3D"width: 264.0px;">
+<col style=3D"width: 237.0px;">
+<col style=3D"width: 265.0px;">
+<col style=3D"width: 288.0px;">
+<col style=3D"width: 84.0px;">
+<col style=3D"width: 50.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"f5a4cdb1-e16e-4d6e-a366-7d3e92e7c451">
+<th class=3D"numberingColumn confluenceTh"></th>
+<th data-local-id=3D"565f430b-f830-4494-b632-39c8b45bde23" class=3D"conflue=
+nceTh">
+<p local-id=3D"6ac308e7d056"><strong>Features/Recommendation</strong></p></=
+th>
+<th data-local-id=3D"f20214c0-401e-46f1-88da-4367c7f9f534" class=3D"conflue=
+nceTh">
+<p local-id=3D"3ecad990f7cd"><strong>Zoho</strong></p></th>
+<th data-local-id=3D"2e79f3e3-15e1-47d3-84a4-39d83ca15402" class=3D"conflue=
+nceTh">
+<p local-id=3D"3b5f739c1cfc"><strong>Wix</strong></p></th>
+<th data-local-id=3D"a719c4bf-831c-4322-893d-408a2ee26c09" class=3D"conflue=
+nceTh">
+<p local-id=3D"b610e951c4db"><strong>Google AppSheet</strong></p></th>
+<th data-local-id=3D"96d7959a-041e-4ddf-a1a3-a5c1e4f54bf0" class=3D"conflue=
+nceTh">
+<p local-id=3D"173aaf38edc6"><strong>SalesForce</strong></p></th>
+<th data-local-id=3D"e320cee1-a1f7-41a5-bab9-96e326affd5f" class=3D"conflue=
+nceTh">
+<p local-id=3D"670b52115491"><strong>Custom Build</strong></p></th>
+<th data-local-id=3D"c6ac4597-e39a-408a-b65b-72219d19f542" class=3D"conflue=
+nceTh">
+<p local-id=3D"4da62d42403f"><strong>Tech Team Ramarks</strong></p></th>
+<th data-local-id=3D"c84b6b86-056e-40ba-b946-4d7a198c04cd" class=3D"conflue=
+nceTh">
+<p local-id=3D"abbec5302229"><strong>NGO Remarks</strong></p></th>
+</tr>
+<tr data-local-id=3D"b4786380-03fd-4347-8556-0438e0a6b044">
+<td class=3D"numberingColumn confluenceTd">1</td>
+<td data-local-id=3D"2a2441ed-9d1b-4259-ab5f-c37c7f3c4ded" class=3D"conflue=
+nceTd">
+<p local-id=3D"52bd5d794682">Technology Stack</p></td>
+<td data-local-id=3D"39c9df80-5d9c-4339-ae3f-dcca3e3b50ea" class=3D"conflue=
+nceTd">
+<p local-id=3D"726dfe709b55"></p></td>
+<td data-local-id=3D"cae27f26-5de9-4260-b247-9b250df6c702" class=3D"conflue=
+nceTd">
+<p local-id=3D"1f87760d2f6b"></p></td>
+<td data-local-id=3D"8a083b37-0f45-443f-9a6e-b459d33a65d1" class=3D"conflue=
+nceTd">
+<p local-id=3D"2533bef088c0"></p></td>
+<td data-local-id=3D"2047e26a-ca66-4135-a2b3-a11504e7746c" class=3D"conflue=
+nceTd">
+<p local-id=3D"0bbd58269917"></p></td>
+<td data-local-id=3D"e634904d-176f-419a-ad08-a083aa9f6b56" class=3D"conflue=
+nceTd">
+<p local-id=3D"2f0e64cc9de0"></p></td>
+<td data-local-id=3D"571e8a42-156c-4604-a340-486f1980a39a" class=3D"conflue=
+nceTd">
+<p local-id=3D"d31e4321a588"></p></td>
+<td data-local-id=3D"aa338d76-4d4f-4bca-9b3b-1937ee69c4ba" class=3D"conflue=
+nceTd">
+<p local-id=3D"99ed4806eeb8"></p></td>
+</tr>
+<tr data-local-id=3D"74fb341d-f391-4e0f-9877-d191dfebaabe">
+<td class=3D"numberingColumn confluenceTd">2</td>
+<td data-local-id=3D"84ccfd53-34ed-4d9b-a641-f5c132afc412" class=3D"conflue=
+nceTd">
+<p local-id=3D"9584610a1edf">Website Platforms with multiple Logins</p></td=
+>
+<td data-local-id=3D"7caae9d3-a9c5-4ecb-aa45-543877fe0ae1" class=3D"conflue=
+nceTd">
+<p local-id=3D"371aee890d16">Zoho Creator Professional Portal (1200/user/mo=
+nth)</p>
+<p local-id=3D"dac06490f30e">Zoho Creator Portal</p>
+<p local-id=3D"be056a2c7c23">(12000/for all users/month)</p></td>
+<td data-local-id=3D"d2f27992-24f9-401a-8ca2-f4eb784bffb7" class=3D"conflue=
+nceTd">
+<p local-id=3D"a7cfc274aefd">Airtable Base</p></td>
+<td data-local-id=3D"ab2202fe-a2cd-40b2-8a5f-59ab4dc18dcd" class=3D"conflue=
+nceTd">
+<p local-id=3D"d6ea82b8e2df">AppSheet app with role-based views (Security f=
+ilters per user role)</p></td>
+<td data-local-id=3D"4b266125-c4a6-4fcd-bda6-7a19d112ed79" class=3D"conflue=
+nceTd">
+<p local-id=3D"e89e6efcef56">Experience Cloud with 4 portal types (Guest, M=
+entee, Mentor, Admin)</p></td>
+<td data-local-id=3D"b30ea14d-15b3-4b29-aba8-f679605084c6" class=3D"conflue=
+nceTd">
+<p local-id=3D"8a3b0537c463">Django auth + custom user roles + JWT tokens +=
+ React role-based routing</p></td>
+<td data-local-id=3D"670ef431-3f0b-4413-8b7a-d104ab2831b1" class=3D"conflue=
+nceTd">
+<p local-id=3D"0149906e3fab"></p></td>
+<td data-local-id=3D"16dad07c-4d7c-4872-804d-040d84cbcb37" class=3D"conflue=
+nceTd">
+<p local-id=3D"2a27d12caaa6"></p></td>
+</tr>
+<tr data-local-id=3D"a54c25ab-8dea-47af-9162-0bcdc96c16c2">
+<td class=3D"numberingColumn confluenceTd">3</td>
+<td data-local-id=3D"0c053213-9f1f-448c-beeb-4853763942de" class=3D"conflue=
+nceTd">
+<p local-id=3D"8ae8c758a6ec">Mentor-Mentee Matching</p></td>
+<td data-local-id=3D"ff5368ab-cc7f-4a0d-aa40-b376f3938bdf" class=3D"conflue=
+nceTd">
+<p local-id=3D"59c1c25bf1a6">Relational forms + Deluge scripting for matchi=
+ng logic</p></td>
+<td data-local-id=3D"92a44901-714d-4170-a162-83de1fdccb2b" class=3D"conflue=
+nceTd">
+<p local-id=3D"9ea02614ade1">Airtable linked records + manual matching by a=
+dmin</p></td>
+<td data-local-id=3D"a6e15a82-da08-408a-b3fd-7c790192a993" class=3D"conflue=
+nceTd">
+<p local-id=3D"70e55f6527df">AppSheet bots+ automation rules based on data =
+columns</p></td>
+<td data-local-id=3D"d7f51833-eec8-4a70-b915-3fb2aae43c19" class=3D"conflue=
+nceTd">
+<p local-id=3D"bd273413314d">Custom Objects + Assignment Rules + Flow Autom=
+ation</p></td>
+<td data-local-id=3D"c5e92ad7-2260-49b0-aab7-de2228070397" class=3D"conflue=
+nceTd">
+<p local-id=3D"8c7bf01f0e23">Custom python algorithm with weighed scoring +=
+ admin override UI</p></td>
+<td data-local-id=3D"22379496-2171-4c32-936c-60f0d8575f1b" class=3D"conflue=
+nceTd">
+<p local-id=3D"3ec8e345bd04"></p></td>
+<td data-local-id=3D"a5c6efa1-a0e0-4046-86ae-a12ce9011803" class=3D"conflue=
+nceTd">
+<p local-id=3D"555683e7041f"></p></td>
+</tr>
+<tr data-local-id=3D"fcb89c38-4524-4b56-85dc-4ded22ed0408">
+<td class=3D"numberingColumn confluenceTd">4</td>
+<td data-local-id=3D"ab9adac7-e905-4c87-9524-b36fd334e890" class=3D"conflue=
+nceTd">
+<p local-id=3D"6cd3a4a6ff9e">Dashboard</p></td>
+<td data-local-id=3D"5735db80-b852-4528-9881-85ec4889f76b" class=3D"conflue=
+nceTd">
+<p local-id=3D"5140e9e49e3b">Zoho Analytics dashboards (auto-synced from cr=
+eator)</p>
+<p local-id=3D"3ec8ec8666cd">cost: 1900/month (5 users, 1M rows)</p></td>
+<td data-local-id=3D"bfb1f2d5-e6e0-4061-a738-f6ef32d6e13d" class=3D"conflue=
+nceTd">
+<p local-id=3D"840a98fcb2a6">Airtable Extensions</p></td>
+<td data-local-id=3D"f3576695-8344-4140-9cfe-73831ff04582" class=3D"conflue=
+nceTd">
+<p local-id=3D"e90185cabc36">Looker studio (free) connected to cloud SQL/sh=
+eets data source</p></td>
+<td data-local-id=3D"9b0a9370-0779-454d-999a-3d5ea687d353" class=3D"conflue=
+nceTd">
+<p local-id=3D"c9a41af3fe4a">Standard Salesforce Dashboards - Drag-and-Drop=
+, real-time, no coding</p></td>
+<td data-local-id=3D"f05b7224-68d9-452f-936a-da00849fd4ee" class=3D"conflue=
+nceTd">
+<p local-id=3D"2755e3573489">React dashboard (recharts/chart.js) or Power B=
+I embedded</p></td>
+<td data-local-id=3D"c1b9222d-b9b1-4026-97d3-b6a14a3e5411" class=3D"conflue=
+nceTd">
+<p local-id=3D"f439820272f9"></p></td>
+<td data-local-id=3D"c657f931-e21e-46fb-a0bf-e856e08e4659" class=3D"conflue=
+nceTd">
+<p local-id=3D"847c6092ff49"></p></td>
+</tr>
+<tr data-local-id=3D"a37f1f03-b5a9-42ba-9c39-2eb0a230bb82">
+<td class=3D"numberingColumn confluenceTd">5</td>
+<td data-local-id=3D"3be1c3c8-f1d5-4a99-a1c7-7d7a2c8fdc87" class=3D"conflue=
+nceTd">
+<p local-id=3D"70a47867b350">FAQ Chatbot</p></td>
+<td data-local-id=3D"50cc39c8-4928-434c-8c14-b1f74237421a" class=3D"conflue=
+nceTd">
+<p local-id=3D"16a061312b1f">Zoho SalesQ</p>
+<p local-id=3D"928f852ac897">cost: free tier: 100 chats/month</p>
+<p local-id=3D"0b342bce4c48"><strong><span data-colorid=3D"tlhb1w2h1v">Note=
+: For more better cost, we can use custom build bot with RAG-based chatbot =
+with Langchain</span></strong></p></td>
+<td data-local-id=3D"c99d75b8-181d-4627-aa92-b6af5b01e665" class=3D"conflue=
+nceTd">
+<p local-id=3D"aaf3899aa306"><strong><span data-colorid=3D"z4qm4ztrho">Wix =
+native chatbot(existing) + upgrade to chatbase with transcript uploads</spa=
+n></strong></p></td>
+<td data-local-id=3D"76b9602a-0a3e-4c66-a70b-e2b972bac40c" class=3D"conflue=
+nceTd">
+<p local-id=3D"272e91019233">Dialogflow CX with YouTube transcript knowledg=
+e base + fallback to support</p></td>
+<td data-local-id=3D"7211e636-a833-4791-94ed-16fcaa760f51" class=3D"conflue=
+nceTd">
+<p local-id=3D"cb1d687de3be">Einstein Bot($50/user/info) or integrate Dialo=
+gflow/ Tidio externally via iFrame</p></td>
+<td data-local-id=3D"84e43eff-cb6a-4e64-9024-bb4d9c686227" class=3D"conflue=
+nceTd">
+<p local-id=3D"5043b13ec409">RAG-based chatbot with LangChain + YouTube tra=
+nscript embeddings</p></td>
+<td data-local-id=3D"59b988c0-53b3-47ab-ba5d-94562c05a00d" class=3D"conflue=
+nceTd">
+<p local-id=3D"18fdcc563238"></p></td>
+<td data-local-id=3D"fe2114b5-da0a-4eaa-893d-2dc6b151f687" class=3D"conflue=
+nceTd">
+<p local-id=3D"a433bcdf32b7"></p></td>
+</tr>
+<tr data-local-id=3D"ed45cb36-bced-4866-92a1-354e9a6f88ba">
+<td class=3D"numberingColumn confluenceTd">6</td>
+<td data-local-id=3D"3b86f72c-c28b-4ccf-b9de-b7aa339e2221" class=3D"conflue=
+nceTd">
+<p local-id=3D"9e9943257ce8">Resource Search</p></td>
+<td data-local-id=3D"cc9623b6-0446-486a-b7fa-e912f2f3a851" class=3D"conflue=
+nceTd">
+<p local-id=3D"ed939d3ac0ba">In built - Creator from filters (country, cour=
+se, university) + related records</p></td>
+<td data-local-id=3D"d09b82e6-b203-4b60-9017-1ac85875baae" class=3D"conflue=
+nceTd">
+<p local-id=3D"c450c17c5df1">Wix database collection with filters</p></td>
+<td data-local-id=3D"11a380e1-eb6c-434b-85cc-bb89041a7bb6" class=3D"conflue=
+nceTd">
+<p local-id=3D"d065aff2334c">AppSheet app with search + filter columns (cou=
+ntry, course, university, level)</p></td>
+<td data-local-id=3D"73fedde5-748a-48b8-9ba3-8dd74bed982e" class=3D"conflue=
+nceTd">
+<p local-id=3D"852c1f024e98">Knowledge base articles with categories, filte=
+rs, search</p></td>
+<td data-local-id=3D"777154d4-824e-4a86-8533-68713f4ddcf0" class=3D"conflue=
+nceTd">
+<p local-id=3D"3e594a2c853c">PostgresSQL full-text search with filters + re=
+act search UI</p></td>
+<td data-local-id=3D"1d4fa2f7-a53a-4ce5-9fed-688303413e59" class=3D"conflue=
+nceTd">
+<p local-id=3D"00f19fa56214"></p></td>
+<td data-local-id=3D"ee661198-0187-422d-83bb-ca4e0a9cb066" class=3D"conflue=
+nceTd">
+<p local-id=3D"5c4574d36b1b"></p></td>
+</tr>
+<tr data-local-id=3D"93de9d55-2cb1-4c34-943d-238bbb2ec414">
+<td class=3D"numberingColumn confluenceTd">7</td>
+<td data-local-id=3D"7b55bde9-758f-4453-8e6d-e7423c607cb7" class=3D"conflue=
+nceTd">
+<p local-id=3D"5b7c25c504fd">Application Intake (Forms)</p></td>
+<td data-local-id=3D"92c5d984-8538-41b6-be70-94cb22b24069" class=3D"conflue=
+nceTd">
+<p local-id=3D"251b0fe80b72">Zoho forms with validation, scoring and workfl=
+ow triggers</p></td>
+<td data-local-id=3D"9743f32c-1c37-4ed2-83b9-04ebe30e154c" class=3D"conflue=
+nceTd">
+<p local-id=3D"e1202bf14bc0">Airtable Forms</p></td>
+<td data-local-id=3D"fa352b0c-1625-413d-98b1-14f7b7a7063e" class=3D"conflue=
+nceTd">
+<p local-id=3D"50309502889b">Google Forms =E2=86=92 sheets =E2=86=92 AppShe=
+et workflow for review/approval <strong><span data-colorid=3D"xang6z3b9i">(=
+NGO already facing issues with this)</span></strong></p></td>
+<td data-local-id=3D"75f11628-4078-4470-adde-773ec64dc058" class=3D"conflue=
+nceTd">
+<p local-id=3D"251b754d96a6">Web-to-Lead forms embedded on public site or F=
+ormstack integration</p></td>
+<td data-local-id=3D"c993ab92-e500-4f87-9d08-61de0c0c31d2" class=3D"conflue=
+nceTd">
+<p local-id=3D"11a864f971b7">Custom React forms with validation + Django ba=
+ckend processing</p></td>
+<td data-local-id=3D"8fc69e33-0a60-46ec-9a31-b5db3865af84" class=3D"conflue=
+nceTd">
+<p local-id=3D"29441aeb6ac2"></p></td>
+<td data-local-id=3D"e2293754-d9d3-402a-98ff-97f83602c5bf" class=3D"conflue=
+nceTd">
+<p local-id=3D"edfc78ced287"></p></td>
+</tr>
+<tr data-local-id=3D"6a152462-823d-4de2-9bb1-324dc5771b03">
+<td class=3D"numberingColumn confluenceTd">8</td>
+<td data-local-id=3D"09ec08c7-ea07-4dee-aa82-234f2794feb5" class=3D"conflue=
+nceTd">
+<p local-id=3D"ede557368fec">Check-in Tracking</p></td>
+<td data-local-id=3D"757d2026-65e5-4aa9-8125-2bbf5df541c4" class=3D"conflue=
+nceTd">
+<p local-id=3D"75502e20ae4e">Custom form with timestamps, mentor approval w=
+orkflows</p></td>
+<td data-local-id=3D"ce5d7510-61bd-424a-8c4e-899a76448c75" class=3D"conflue=
+nceTd">
+<p local-id=3D"2fd723a7f2a9">Airtable Forms + views with filters</p></td>
+<td data-local-id=3D"de786f6c-16d8-4b1c-9a41-001ae91c4173" class=3D"conflue=
+nceTd">
+<p local-id=3D"d8617337c1dd">AppSheet form with timestamp, inked mentor/men=
+tee records</p></td>
+<td data-local-id=3D"bce43771-12a9-41d7-b25e-890da51b4907" class=3D"conflue=
+nceTd">
+<p local-id=3D"19ae449bf409">Custom object with scheduled reports and remin=
+ders</p></td>
+<td data-local-id=3D"ca0b13e8-2f9b-4327-8e95-9d144623c94b" class=3D"conflue=
+nceTd">
+<p local-id=3D"c3f2d3478798">Custom module with scheduled reminders (Celery=
+ + Redis)</p></td>
+<td data-local-id=3D"ef7f134a-9583-41c8-b3e5-1a458dd9a087" class=3D"conflue=
+nceTd">
+<p local-id=3D"722180097a88"></p></td>
+<td data-local-id=3D"99e06719-54ca-41c8-a228-f22dd4bf8f93" class=3D"conflue=
+nceTd">
+<p local-id=3D"93013c6dc67c"></p></td>
+</tr>
+<tr data-local-id=3D"875e6633a4cb">
+<td class=3D"numberingColumn confluenceTd">9</td>
+<td data-local-id=3D"4faf5cf9ce4d" class=3D"confluenceTd">
+<p local-id=3D"652fe6805c13">Recommendation Score</p></td>
+<td data-local-id=3D"425f34437643" class=3D"confluenceTd">
+<p local-id=3D"c8b650c55322">Deluge formula fields based on intake data (sc=
+ores, background)</p></td>
+<td data-local-id=3D"8322760ebf09" class=3D"confluenceTd">
+<p local-id=3D"84072259e2b3"><strong><span data-colorid=3D"kazzzk99hf">Not =
+feasible without custom development</span></strong></p></td>
+<td data-local-id=3D"97606c9247b5" class=3D"confluenceTd">
+<p local-id=3D"c2ee040aae9c">Google Apps script function calculating score =
+from intake data</p></td>
+<td data-local-id=3D"fc72dd430969" class=3D"confluenceTd">
+<p local-id=3D"1421d51f53a0">Formula fields + Apex trigger for scoring logi=
+c</p></td>
+<td data-local-id=3D"c7210761f026" class=3D"confluenceTd">
+<p local-id=3D"6ea97e2137d0">Custom ML Model or Weighed scoring algorithms =
+in Python</p></td>
+<td data-local-id=3D"6accfb90ffde" class=3D"confluenceTd">
+<p local-id=3D"2f815a7bcd74"></p></td>
+<td data-local-id=3D"b928d9711b13" class=3D"confluenceTd">
+<p local-id=3D"b0cadda38fb7"></p></td>
+</tr>
+<tr data-local-id=3D"e904edc6-84ba-42ae-af15-65af941c09f7">
+<td class=3D"numberingColumn confluenceTd">10</td>
+<td data-local-id=3D"8e0d4a02-03ab-4506-99f2-4755ef1c6c10" class=3D"conflue=
+nceTd">
+<p local-id=3D"835f1a6e4d29">Data Purge</p></td>
+<td data-local-id=3D"cfa6b449-85f0-4829-b264-34d004fe442d" class=3D"conflue=
+nceTd">
+<p local-id=3D"cb72caa78a25">Scheduled Deluge scripts for life-cycle-based =
+cleanup</p></td>
+<td data-local-id=3D"e7ef3786-f8c2-4ddb-9ba5-d8f7b29c4040" class=3D"conflue=
+nceTd">
+<p local-id=3D"21f596ba06ae">Manual or Zapier-triggered after date conditio=
+ns</p></td>
+<td data-local-id=3D"aa316d0c-1a23-42ac-93d0-664195d0360f" class=3D"conflue=
+nceTd">
+<p local-id=3D"ae4042428790">Google Apps script time-triggered function for=
+ data cleanup</p></td>
+<td data-local-id=3D"ca5c5978-b3ec-4756-9b38-327ae030d9ed" class=3D"conflue=
+nceTd">
+<p local-id=3D"1aebcebf1c6a">Scheduled Apex batch jobs for life cycle-based=
+ deletion</p></td>
+<td data-local-id=3D"81d088b9-a155-4fec-8a62-9c274810eaac" class=3D"conflue=
+nceTd">
+<p local-id=3D"38e5a2df0e7f">Django management commands with Celery schedul=
+ed tasks</p></td>
+<td data-local-id=3D"84392fae-faf2-46b2-be1e-3e4c075aca35" class=3D"conflue=
+nceTd">
+<p local-id=3D"bb16829beab7"></p></td>
+<td data-local-id=3D"7bcebff1-fdf1-4393-a039-9c283fd4fa88" class=3D"conflue=
+nceTd">
+<p local-id=3D"f8603915ef8e"></p></td>
+</tr>
+<tr data-local-id=3D"6d6233ea-cd2e-414e-8f4d-d07a316000b9">
+<td class=3D"numberingColumn confluenceTd">11</td>
+<td data-local-id=3D"76ec12e5-4378-4bca-b831-444f1104f4b9" class=3D"conflue=
+nceTd">
+<p local-id=3D"c17e1f99be4a">Email Automation</p></td>
+<td data-local-id=3D"b5e4e14e-3e28-4414-9c95-259e3c55389a" class=3D"conflue=
+nceTd">
+<p local-id=3D"738fee54d306">Zoho flow automation + Zoho mail integration o=
+r Gmail connector</p></td>
+<td data-local-id=3D"784669ee-e0b5-4976-85aa-befd21261c68" class=3D"conflue=
+nceTd">
+<p local-id=3D"b4a7b43c86f2">Zapier+Gmail/Mailchimp for triggered emails</p=
+></td>
+<td data-local-id=3D"a54999ad-19c3-4e44-8f04-0ffe041e1a7d" class=3D"conflue=
+nceTd">
+<p local-id=3D"a8ab8f4a8fea">Google Apps Script + Gmail API for automated n=
+otifications</p></td>
+<td data-local-id=3D"b2ea24de-788c-4869-9df2-b16915cc2701" class=3D"conflue=
+nceTd">
+<p local-id=3D"76cce1388b26">Flow-based automated emails, scheduled sends, =
+templates</p></td>
+<td data-local-id=3D"f327375a-084d-42e3-9cf4-6d3a4587d92d" class=3D"conflue=
+nceTd">
+<p local-id=3D"b1c64ca8f934">Django + Celery + SendGrid/Gmail SMTP for auto=
+mated emails</p></td>
+<td data-local-id=3D"701e1f09-7d67-4513-9be0-1badc8fcaa6f" class=3D"conflue=
+nceTd">
+<p local-id=3D"a0974dae3ddf"></p></td>
+<td data-local-id=3D"b6d7fbed-7e6b-40e6-aab8-98f64725a83c" class=3D"conflue=
+nceTd">
+<p local-id=3D"a18e2be83cc5"></p></td>
+</tr>
+<tr data-local-id=3D"7ef50e22-8c20-4816-aac0-5fa10f3d2021">
+<td class=3D"numberingColumn confluenceTd">12</td>
+<td data-local-id=3D"ebe57a64-40a8-422f-a4fa-0983a0a07c4c" class=3D"conflue=
+nceTd">
+<p local-id=3D"934262122484">Hosting Platform</p></td>
+<td data-local-id=3D"66f4f9f5-e665-46b9-ac9f-9e126ab74327" class=3D"conflue=
+nceTd">
+<p local-id=3D"4ea86c70c2e1">Zoho</p></td>
+<td data-local-id=3D"393bcdce-0eba-49be-b186-2cc53e711839" class=3D"conflue=
+nceTd">
+<p local-id=3D"1d4a05a5881b">Wix</p></td>
+<td data-local-id=3D"b4677b87-5e66-4ff7-99a6-91e5c9774167" class=3D"conflue=
+nceTd">
+<p local-id=3D"5f511b643665"></p></td>
+<td data-local-id=3D"078b0e93-c687-4f04-8320-800244074a7a" class=3D"conflue=
+nceTd">
+<p local-id=3D"ca1b1bbe5ad7"></p></td>
+<td data-local-id=3D"821d469e-8a47-4e04-b36d-089e6b698e0a" class=3D"conflue=
+nceTd">
+<p local-id=3D"eec7c7215739">TBD</p></td>
+<td data-local-id=3D"c7c7c6de-410c-4fe2-8f16-1db361f0e5a9" class=3D"conflue=
+nceTd">
+<p local-id=3D"cdf35ac04d18"></p></td>
+<td data-local-id=3D"6130985e-b3c2-488d-9abd-2a52b12f4861" class=3D"conflue=
+nceTd">
+<p local-id=3D"23bf65514951"></p></td>
+</tr>
+<tr data-local-id=3D"fb52c603-033d-4b44-a47d-6393451a6c4a">
+<td class=3D"numberingColumn confluenceTd">13</td>
+<td data-local-id=3D"75319f3a-3041-455a-86d7-9c7d57a7f104" class=3D"conflue=
+nceTd">
+<p local-id=3D"bae7d110a223">Estimated Cost</p>
+<p local-id=3D"07b2ba3f43a6">(NGO discounts to be checked from NGO)</p></td=
+>
+<td data-local-id=3D"706d4840-d152-4e91-9a3a-e8b51e13d4b7" class=3D"conflue=
+nceTd">
+<p local-id=3D"50c32beef583">~1.5-2 Lakhs/year</p></td>
+<td data-local-id=3D"32b5474c-fb4a-4c5a-a75a-a79215ca0a27" class=3D"conflue=
+nceTd">
+<p local-id=3D"71bcb5fbec96">~1.5-2 Lakhs/year</p></td>
+<td data-local-id=3D"42e978b0-7177-497b-b27b-f5735bb68ee2" class=3D"conflue=
+nceTd">
+<p local-id=3D"61be75474d97">~1-1.3 Lakhs/year</p></td>
+<td data-local-id=3D"5cc6501e-b898-4850-a0c9-f312e52cb671" class=3D"conflue=
+nceTd">
+<p local-id=3D"2f68714895f6">~4-5 Lakhs/year</p></td>
+<td data-local-id=3D"8179fc80-bbf8-4eae-bc8b-3c9aebdbdbea" class=3D"conflue=
+nceTd">
+<p local-id=3D"32b652959bac">~70K - 1.25 Lakhs/Year</p></td>
+<td data-local-id=3D"bafc0f90-dbb0-4b00-b37b-f85cf613e251" class=3D"conflue=
+nceTd">
+<p local-id=3D"9591bec04cd3"></p></td>
+<td data-local-id=3D"bf17dc0e-5c5c-42cd-979b-ca69b9d63bf5" class=3D"conflue=
+nceTd">
+<p local-id=3D"5478f1506d50"></p></td>
+</tr>
+<tr data-local-id=3D"a6d3209cc523">
+<td class=3D"numberingColumn confluenceTd">14</td>
+<td data-local-id=3D"9d42018e8f79" class=3D"confluenceTd">
+<p local-id=3D"19007ae8b525">Final Recommendation</p></td>
+<td data-local-id=3D"442bb48b24da" class=3D"confluenceTd">
+<p local-id=3D"9c09a6539479">Y (Most feasible as its mostly low-code and ea=
+sy to maintain)</p></td>
+<td data-local-id=3D"14eaedc2c300" class=3D"confluenceTd">
+<p local-id=3D"b5561d0aba69">X (Extra tools needed hence maintenance become=
+ slightly fragmented over time)</p></td>
+<td data-local-id=3D"d33dbfbf7e6a" class=3D"confluenceTd">
+<p local-id=3D"83fcd01db058">X (Not effective and maintenance issues)</p></=
+td>
+<td data-local-id=3D"d6bc15193ad9" class=3D"confluenceTd">
+<p local-id=3D"199ef1ea92f1">X (High Cost)</p></td>
+<td data-local-id=3D"3d97e1f11a32" class=3D"confluenceTd">
+<p local-id=3D"1c83e0826fd8">X (High maintenance and needs technical expert=
+ise)</p></td>
+<td data-local-id=3D"51e2316c05ff" class=3D"confluenceTd">
+<p local-id=3D"3edbd52a648b"></p></td>
+<td data-local-id=3D"cefe7e5c90fe" class=3D"confluenceTd">
+<p local-id=3D"56bec212d1ca"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+</body>
+</html>
+------=_Part_18_368041954.1784557372078--

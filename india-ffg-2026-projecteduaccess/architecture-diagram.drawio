@@ -1,0 +1,40 @@
+<mxfile host="65bd71144e">
+    <diagram id="architecture-diagram" name="Architecture">
+        <mxGraphModel dx="900" dy="1709" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="User Browser" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontColor=#1a1a1a;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="-110" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="React Frontend\n(frontend/src)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontColor=#1a1a1a;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="140" width="260" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="FastAPI Backend\n(backend/app)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontColor=#1a1a1a;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="130" width="260" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="SQLite Database\n(backend/data/app.db)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontColor=#1a1a1a;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="500" width="260" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Docker Compose\n(frontend + backend)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontColor=#1a1a1a;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="360" width="260" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="HTTP + JSON" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=10;" parent="1" source="2" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="API calls\n/auth, /me, /notices, /applications" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=10;" parent="1" source="3" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="SQL queries" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;fontSize=10;" parent="1" source="4" target="5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Local development" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;fontSize=10;" parent="1" source="6" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Local development" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;fontSize=10;" parent="1" source="6" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
