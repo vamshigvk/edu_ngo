@@ -1,0 +1,21 @@
+# Minimum-version specifiers (Python 3.11+). Lets pip reuse existing compatible
+# wheels; pin exact versions in a lockfile for production reproducibility.
+fastapi>=0.115
+uvicorn[standard]>=0.34
+sqlalchemy[asyncio]>=2.0.30
+alembic>=1.14
+aiosqlite>=0.20
+pydantic>=2.10
+pydantic-settings>=2.7
+python-multipart>=0.0.20
+PyJWT>=2.10
+bcrypt>=4.2
+email-validator>=2.2
+# PostgreSQL driver — install separately when targeting Postgres:
+#   pip install asyncpg
+# asyncpg>=0.30
+
+# --- dev / test ---
+pytest>=8.3
+pytest-asyncio>=0.25
+httpx>=0.28
