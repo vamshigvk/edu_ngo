@@ -11,9 +11,8 @@ python-multipart>=0.0.20
 PyJWT>=2.10
 bcrypt>=4.2
 email-validator>=2.2
-# PostgreSQL driver — install separately when targeting Postgres:
-#   pip install asyncpg
-# asyncpg>=0.30
+# PostgreSQL driver (used by the Docker Compose stack; harmless for SQLite dev).
+asyncpg>=0.30
 
 # --- dev / test ---
 pytest>=8.3
