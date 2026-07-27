@@ -18,8 +18,11 @@ edu_nogo/
 
 ## 1. Quick start (Docker — recommended)
 
-**Prerequisite:** [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-installed and running.
+**Prerequisites:**
+- Python 3.12
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+
 
 ```bash
 ./setup.sh up
@@ -54,6 +57,27 @@ schema, and seeds demo data on first boot. When it finishes:
 | `./setup.sh logs` | Follow logs |
 
 > Prefer raw Compose? `docker compose up --build` does the same as `./setup.sh`.
+
+### Connect to the database from the PostgreSQL extension
+
+Once the Docker stack is running, the database is exposed on your host at `localhost:5432`.
+Use these values in your PostgreSQL extension or any SQL client:
+
+- **Host:** `localhost`
+- **Port:** `5432`
+- **User:** `ffg`
+- **Password:** `ffg_password`
+- **Database:** `ffg`
+- **SSL:** disabled
+
+Connection string:
+
+```text
+postgresql://ffg:ffg_password@localhost:5432/ffg
+```
+
+If you are using the VS Code PostgreSQL extension, create a new connection with
+those values and connect to the `ffg` database.
 
 ---
 
