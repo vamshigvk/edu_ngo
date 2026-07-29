@@ -9,7 +9,7 @@ export default function Resources(){
   useEffect(() => {
     async function load(){
       try {
-        const { data } = await api.get('/api/resources', { params: { limit: 1000 } })
+        const { data } = await api.get('/api/public/resources', { params: { limit: 1000 } })
         setResources(data)
       } catch {
         setError('Could not load resources right now.')

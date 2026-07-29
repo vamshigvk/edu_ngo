@@ -12,11 +12,15 @@ class EmployeeDashboard(BaseModel):
 
 class MentorDashboard(BaseModel):
     role: str = "Mentor"
+    profile: dict[str, Any] | None = None
     engagement_metrics: dict[str, int]
+    mentees: list[dict[str, Any]] = []
     assigned_cohorts: list[dict[str, Any]]
 
 
 class MenteeDashboard(BaseModel):
     role: str = "Mentee"
+    profile: dict[str, Any] | None = None
     my_program_status: dict[str, Any]
-    available_resources: list[dict[str, Any]]
+    mentor: dict[str, Any] | None = None
+    checkins: list[dict[str, Any]] = []

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 
 const EMPTY = {
@@ -18,8 +18,32 @@ export default function StudentForm(){
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
 
+  // Cohort-configured extra fields (the in-app dynamic form).
+  const [cohortId, setCohortId] = useState(null)
+  const [dynFields, setDynFields] = useState([])
+  const [dynAnswers, setDynAnswers] = useState({})
+
+  useEffect(() => {
+    async function loadForm(){
+      try {
+        const { data: cohorts } = await api.get('/api/public/cohorts')
+        const cohort = cohorts[0]
+        if (!cohort) return
+        setCohortId(cohort.id)
+        const { data: fields } = await api.get(`/api/public/cohorts/${cohort.id}/form`)
+        setDynFields(fields)
+      } catch {
+        /* the base form still works without a configured cohort form */
+      }
+    }
+    loadForm()
+  }, [])
+
   function update(field){
     return (e) => setForm({ ...form, [field]: e.target.value })
+  }
+  function updateDyn(name){
+    return (e) => setDynAnswers({ ...dynAnswers, [name]: e.target.value })
   }
 
   async function handleSubmit(e){
@@ -27,53 +51,62 @@ export default function StudentForm(){
     setError('')
     setSubmitting(true)
     try {
-      // A mentee application must be attached to a cohort — use the first
-      // active cohort (fall back to any cohort) exposed by the backend.
-      const { data: cohorts } = await api.get('/api/cohorts', { params: { limit: 100 } })
-      const cohort = cohorts.find(c => c.status === 'active') || cohorts[0]
-      if (!cohort) {
-        throw new Error('No cohort is currently open for applications.')
-      }
-
-      // 1) Create the applicant user (no password — they are not logging in yet).
-      const { data: user } = await api.post('/api/users', {
-        email: form.email,
+      // Single public endpoint runs create-user → profile → application →
+      // submit server-side (role pinned to mentee). Server validates required
+      // form fields against the cohort's configured form.
+      await api.post('/api/public/apply/student', {
         full_name: form.fullName,
-        role: 'mentee',
-      })
-
-      // 2) Capture their mentee profile.
-      await api.post('/api/mentee-profiles', {
-        user_id: user.id,
+        email: form.email,
         country: form.country,
-        level: form.education,
-        cohort_id: cohort.id,
+        rural_urban: form.ruralUrban,
+        education: form.education,
+        score: form.score,
+        gender: form.gender,
+        about: form.about,
+        cohort_id: cohortId,
+        answers: dynAnswers,
       })
-
-      // 3) Create the application, then submit it.
-      const { data: application } = await api.post('/api/applications', {
-        user_id: user.id,
-        cohort_id: cohort.id,
-        purpose: 'skill_building',
-        status: 'draft',
-        answers: {
-          rural_urban: form.ruralUrban,
-          highest_education: form.education,
-          score: form.score,
-          gender: form.gender,
-          about: form.about,
-        },
-      })
-      await api.post(`/api/applications/${application.id}/submit`)
 
       setDone(true)
       setForm(EMPTY)
+      setDynAnswers({})
     } catch (err) {
-      const detail = err?.response?.data?.detail
+      const detail = err?.response?.data?.error?.message || err?.response?.data?.detail
       setError(typeof detail === 'string' ? detail : (err.message || 'Something went wrong. Please try again.'))
     } finally {
       setSubmitting(false)
     }
+  }
+
+  function renderDynField(f){
+    const val = dynAnswers[f.field_name] ?? ''
+    const common = {
+      value: val,
+      onChange: updateDyn(f.field_name),
+      required: f.is_required,
+      className: 'mt-1 block w-full border border-gray-300 rounded px-3 py-2',
+    }
+    if (f.field_type === 'textarea') return <textarea rows="4" {...common} />
+    if (f.field_type === 'number') return <input type="number" step="any" {...common} />
+    if (f.field_type === 'date') return <input type="date" {...common} />
+    if (f.field_type === 'boolean') {
+      return (
+        <select {...common}>
+          <option value="">Select an option</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      )
+    }
+    if (f.field_type === 'dropdown' || f.field_type === 'multi_select') {
+      return (
+        <select {...common}>
+          <option value="">Select an option</option>
+          {(f.options || []).map((o, i) => <option key={i} value={o}>{o}</option>)}
+        </select>
+      )
+    }
+    return <input type="text" {...common} />
   }
 
   if (done) {
@@ -152,6 +185,16 @@ export default function StudentForm(){
           <label className="block text-sm font-medium text-gray-700">Tell us about yourself</label>
           <textarea value={form.about} onChange={update('about')} rows="4" className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
         </div>
+
+        {/* Cohort-configured additional questions */}
+        {dynFields.map((f) => (
+          <div key={f.field_name}>
+            <label className="block text-sm font-medium text-gray-700">
+              {f.field_name}{f.is_required && <span className="text-red-600"> *</span>}
+            </label>
+            {renderDynField(f)}
+          </div>
+        ))}
 
         <div className="flex justify-end">
           <button type="submit" disabled={submitting} className="px-6 py-3 bg-black text-yellow-400 font-semibold rounded hover:bg-gray-900 disabled:opacity-50">

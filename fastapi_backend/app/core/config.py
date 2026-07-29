@@ -30,7 +30,8 @@ class Settings(BaseSettings):
     # Security / JWT
     jwt_secret: str = "change-me-to-a-long-random-secret"
     jwt_algorithm: str = "HS256"
-    access_token_expire_minutes: int = 60 * 24
+    # Sessions expire after one hour; the SPA auto-logs-out on the resulting 401.
+    access_token_expire_minutes: int = 60
 
     # CORS
     cors_origins: str = "*"

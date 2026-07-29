@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import api from '../../services/api'
 
-const EMPTY = { fullName: '', email: '', country: '', about: '' }
+const EMPTY = { fullName: '', email: '', country: '', discipline: '', about: '', studiedAbroad: false }
 
 export default function MentorForm(){
   const [form, setForm] = useState(EMPTY)
@@ -18,26 +18,20 @@ export default function MentorForm(){
     setError('')
     setSubmitting(true)
     try {
-      // 1) Create the mentor user account.
-      const { data: user } = await api.post('/api/users', {
-        email: form.email,
+      // Public endpoint creates the mentor user + profile (role pinned to mentor).
+      await api.post('/api/public/apply/mentor', {
         full_name: form.fullName,
-        role: 'mentor',
-      })
-
-      // 2) Capture their mentor profile (country is folded into the bio since
-      //    the profile model has no dedicated country field).
-      await api.post('/api/mentor-profiles', {
-        user_id: user.id,
-        bio: form.country ? `${form.about}\n\nCountry: ${form.country}` : form.about,
-        expertise: [],
-        languages: [],
+        email: form.email,
+        country: form.country,
+        discipline: form.discipline,
+        about: form.about,
+        studied_abroad: form.studiedAbroad,
       })
 
       setDone(true)
       setForm(EMPTY)
     } catch (err) {
-      const detail = err?.response?.data?.detail
+      const detail = err?.response?.data?.error?.message || err?.response?.data?.detail
       setError(typeof detail === 'string' ? detail : (err.message || 'Something went wrong. Please try again.'))
     } finally {
       setSubmitting(false)
@@ -78,6 +72,18 @@ export default function MentorForm(){
         <div>
           <label className="block text-sm font-medium text-gray-700">Country</label>
           <input value={form.country} onChange={update('country')} className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Discipline / field of expertise</label>
+          <input value={form.discipline} onChange={update('discipline')} placeholder="e.g. Computer Science, Public Health" className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
+        </div>
+
+        <div>
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+            <input type="checkbox" checked={form.studiedAbroad} onChange={(e) => setForm({ ...form, studiedAbroad: e.target.checked })} />
+            I have studied abroad
+          </label>
         </div>
 
         <div>

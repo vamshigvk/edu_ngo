@@ -3,6 +3,7 @@ import uuid
 
 from pydantic import BaseModel
 
+from app.models.enums import MentorshipType
 from app.schemas.common import ORMModel
 
 
@@ -14,6 +15,9 @@ class MentorProfileBase(BaseModel):
     availability: str | None = None
     bio: str | None = None
     languages: list = []
+    studied_abroad: bool = False
+    discipline: str | None = None
+    english_support_opt_in: bool = False
 
 
 class MentorProfileCreate(MentorProfileBase):
@@ -26,6 +30,9 @@ class MentorProfileUpdate(BaseModel):
     availability: str | None = None
     bio: str | None = None
     languages: list | None = None
+    studied_abroad: bool | None = None
+    discipline: str | None = None
+    english_support_opt_in: bool | None = None
 
 
 class MentorProfileRead(ORMModel, MentorProfileBase):
@@ -40,6 +47,9 @@ class MenteeProfileBase(BaseModel):
     country: str | None = None
     course: str | None = None
     level: str | None = None
+    discipline: str | None = None
+    mentorship_type: MentorshipType | None = None
+    english_support_opt_in: bool = False
     cohort_id: uuid.UUID | None = None
 
 
@@ -52,6 +62,9 @@ class MenteeProfileUpdate(BaseModel):
     country: str | None = None
     course: str | None = None
     level: str | None = None
+    discipline: str | None = None
+    mentorship_type: MentorshipType | None = None
+    english_support_opt_in: bool | None = None
     cohort_id: uuid.UUID | None = None
 
 

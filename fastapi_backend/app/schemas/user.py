@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr
 
 from app.models.enums import UserRole
 from app.schemas.common import ORMModel
+from app.schemas.profile import MenteeProfileRead, MentorProfileRead
 
 
 class UserBase(BaseModel):
@@ -34,5 +35,21 @@ class UserUpdate(BaseModel):
 class UserRead(ORMModel, UserBase):
     id: uuid.UUID
     is_superuser: bool = False
+    is_alumni: bool = False
+    declaration_signed_at: datetime | None = None
     date_joined: datetime
     created_at: datetime
+
+
+class UserAdminRead(UserRead):
+    """User plus their loaded mentor/mentee profile, for the admin console."""
+
+    mentor_profile: MentorProfileRead | None = None
+    mentee_profile: MenteeProfileRead | None = None
+
+
+class UserPage(BaseModel):
+    """Paginated user listing: the current page of rows plus the grand total."""
+
+    items: list[UserAdminRead]
+    total: int

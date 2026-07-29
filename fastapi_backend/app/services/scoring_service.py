@@ -60,6 +60,7 @@ class ScoringEngineService:
 
             app.auto_score = total
             app.final_score = total
+            app.disadvantage_score = total
             if app.status == ApplicationStatus.SUBMITTED:
                 app.status = ApplicationStatus.SCORED
             db.add(app)

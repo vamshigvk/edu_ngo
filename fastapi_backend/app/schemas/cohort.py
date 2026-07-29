@@ -15,6 +15,7 @@ class CohortBase(BaseModel):
     end_date: date
     status: CohortStatus = CohortStatus.UPCOMING
     max_mentees: int
+    selection_threshold: float = 0.0
 
 
 class CohortCreate(CohortBase):
@@ -28,6 +29,7 @@ class CohortUpdate(BaseModel):
     end_date: date | None = None
     status: CohortStatus | None = None
     max_mentees: int | None = None
+    selection_threshold: float | None = None
 
 
 class CohortRead(ORMModel, CohortBase):

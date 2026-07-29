@@ -1,4 +1,4 @@
-# Minimum-version specifiers (Python 3.11+). Lets pip reuse existing compatible
+# Minimum-version specifiers (Python 3.12). Lets pip reuse existing compatible
 # wheels; pin exact versions in a lockfile for production reproducibility.
 fastapi>=0.115
 uvicorn[standard]>=0.34

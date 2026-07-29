@@ -21,7 +21,8 @@ async def _make_user(client, email, role):
     return resp.json()["id"]
 
 
-async def test_scoring_engine_uses_scoring_logic(client):
+async def test_scoring_engine_uses_scoring_logic(admin_client):
+    client = admin_client
     cid = await _make_cohort(client)
     uid = await _make_user(client, "applicant@example.com", "mentee")
 
@@ -57,7 +58,8 @@ async def test_scoring_engine_uses_scoring_logic(client):
     assert got.json()["status"] == "scored"
 
 
-async def test_matching_engine_generates_pairs(client):
+async def test_matching_engine_generates_pairs(admin_client):
+    client = admin_client
     cid = await _make_cohort(client)
     mentor_uid = await _make_user(client, "m@example.com", "mentor")
     mentee_uid = await _make_user(client, "e@example.com", "mentee")
@@ -93,7 +95,8 @@ async def test_matching_engine_generates_pairs(client):
     assert pairs[0]["match_score"] == 100.0
 
 
-async def test_application_submit_and_review(client):
+async def test_application_submit_and_review(admin_client):
+    client = admin_client
     cid = await _make_cohort(client)
     uid = await _make_user(client, "a2@example.com", "mentee")
 
@@ -126,7 +129,8 @@ async def test_application_submit_and_review(client):
     assert resp.json()["status"] == "accepted"  # fixed from Django's 'approved'
 
 
-async def test_submit_missing_required_field_fails(client):
+async def test_submit_missing_required_field_fails(admin_client):
+    client = admin_client
     cid = await _make_cohort(client)
     uid = await _make_user(client, "a3@example.com", "mentee")
     await client.post(
@@ -147,10 +151,60 @@ async def test_submit_missing_required_field_fails(client):
     assert resp.status_code == 400
 
 
-async def test_dashboards(client):
+async def test_dashboards(admin_client):
+    client = admin_client
     await _make_cohort(client)
     for path in ("/dashboard/emp", "/dashboard/mentor", "/dashboard/mentee"):
         resp = await client.get(path)
         assert resp.status_code == 200, resp.text
     emp = (await client.get("/dashboard/emp")).json()
     assert "platform_summary" in emp
+
+
+async def test_dashboards_are_scoped_to_the_user(client):
+    from tests.conftest import register_and_login
+
+    admin = {"Authorization": await register_and_login(client, "admin@example.com", "admin")}
+
+    async def reg(email, role):
+        r = await client.post(
+            "/auth/register",
+            json={"email": email, "full_name": email.split("@")[0],
+                  "password": "password123", "role": role},
+        )
+        return r.json()["id"]
+
+    mentor_id = await reg("mentor@example.com", "mentor")
+    mentee_id = await reg("mentee@example.com", "mentee")
+    await reg("other.mentor@example.com", "mentor")
+
+    cohort = (await client.post(
+        "/api/cohorts",
+        json={"name": "C", "program": "P", "start_date": "2026-01-01",
+              "end_date": "2026-06-01", "status": "active", "max_mentees": 5},
+        headers=admin,
+    )).json()
+    await client.post(
+        "/api/pairs",
+        json={"mentor_id": mentor_id, "mentee_id": mentee_id,
+              "cohort_id": cohort["id"], "status": "active"},
+        headers=admin,
+    )
+
+    async def token(email):
+        r = await client.post("/auth/login", data={"username": email, "password": "password123"})
+        return {"Authorization": f"Bearer {r.json()['access_token']}"}
+
+    # The paired mentor sees exactly their one mentee.
+    md = (await client.get("/dashboard/mentor", headers=await token("mentor@example.com"))).json()
+    assert md["engagement_metrics"]["assigned_mentees"] == 1
+    assert md["mentees"][0]["name"] == "mentee"
+
+    # A different mentor with no pairings sees none.
+    other = (await client.get("/dashboard/mentor", headers=await token("other.mentor@example.com"))).json()
+    assert other["engagement_metrics"]["assigned_mentees"] == 0
+
+    # The mentee sees their assigned mentor.
+    ed = (await client.get("/dashboard/mentee", headers=await token("mentee@example.com"))).json()
+    assert ed["my_program_status"]["has_active_match"] is True
+    assert ed["mentor"]["name"] == "mentor"

@@ -2,10 +2,13 @@
 import uuid
 
 from fastapi import APIRouter, Depends, status
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.controllers.crud_factory import build_crud_router
 from app.core.database import get_db
+from app.models.application import ApplicationFormConfig
+from app.schemas.application import ApplicationFormConfigRead
 from app.schemas.cohort import CohortCreate, CohortRead, CohortUpdate
 from app.schemas.engine import MatchingRunResponse, ScoringRunResponse
 from app.services.crud import cohort_service
@@ -20,6 +23,22 @@ router = build_crud_router(
     create_schema=CohortCreate,
     update_schema=CohortUpdate,
 )
+
+
+@router.get(
+    "/{cohort_id}/form-configs",
+    response_model=list[ApplicationFormConfigRead],
+    summary="List a cohort's application-form fields (ordered)",
+)
+async def cohort_form_configs(
+    cohort_id: uuid.UUID, db: AsyncSession = Depends(get_db)
+):
+    result = await db.execute(
+        select(ApplicationFormConfig)
+        .where(ApplicationFormConfig.cohort_id == cohort_id)
+        .order_by(ApplicationFormConfig.field_order)
+    )
+    return list(result.scalars().all())
 
 
 @router.post(

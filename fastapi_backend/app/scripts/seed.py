@@ -27,6 +27,7 @@ from app.models.enums import (
 
 USERS = [
     {"full_name": "Admin User", "email": "admin@example.com", "role": UserRole.ADMIN},
+    {"full_name": "Rena Reviewer", "email": "reviewer@example.com", "role": UserRole.REVIEWER},
     {"full_name": "Aarav Mehta", "email": "aarav.mehta@example.com", "role": UserRole.MENTEE},
     {"full_name": "Ananya Rao", "email": "ananya.rao@example.com", "role": UserRole.MENTEE},
     {"full_name": "Vikram Singh", "email": "vikram.singh@example.com", "role": UserRole.MENTOR},

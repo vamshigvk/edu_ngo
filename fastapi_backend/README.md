@@ -27,6 +27,8 @@ tests/               # pytest + httpx async tests
 
 ## Quickstart
 
+Requires **Python 3.12** (matches the `python:3.12-slim` Docker image).
+
 ```bash
 cd fastapi_backend
 python -m venv .venv && source .venv/bin/activate

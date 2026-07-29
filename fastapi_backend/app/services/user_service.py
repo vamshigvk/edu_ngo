@@ -1,8 +1,9 @@
 """User service — CRUD plus password hashing and email lookup."""
 import uuid
 
-from sqlalchemy import select
+from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.core.exceptions import ConflictError, NotFoundError
 from app.core.security import hash_password
@@ -20,11 +21,46 @@ class UserService:
         result = await db.execute(select(User).where(User.email == email))
         return result.scalar_one_or_none()
 
+    @staticmethod
+    def _filtered(stmt, *, search: str | None, role: str | None):
+        if role:
+            stmt = stmt.where(User.role == role)
+        if search:
+            like = f"%{search}%"
+            stmt = stmt.where(
+                or_(User.full_name.ilike(like), User.email.ilike(like))
+            )
+        return stmt
+
     async def list(
-        self, db: AsyncSession, *, skip: int = 0, limit: int = 100
+        self,
+        db: AsyncSession,
+        *,
+        skip: int = 0,
+        limit: int = 100,
+        search: str | None = None,
+        role: str | None = None,
     ) -> list[User]:
-        result = await db.execute(select(User).offset(skip).limit(limit))
+        stmt = select(User).options(
+            selectinload(User.mentor_profile),
+            selectinload(User.mentee_profile),
+        )
+        stmt = self._filtered(stmt, search=search, role=role)
+        stmt = stmt.order_by(User.created_at.desc()).offset(skip).limit(limit)
+        result = await db.execute(stmt)
         return list(result.scalars().all())
+
+    async def count(
+        self,
+        db: AsyncSession,
+        *,
+        search: str | None = None,
+        role: str | None = None,
+    ) -> int:
+        stmt = self._filtered(
+            select(func.count()).select_from(User), search=search, role=role
+        )
+        return int((await db.execute(stmt)).scalar_one())
 
     async def create(self, db: AsyncSession, data: dict) -> User:
         password = data.pop("password", None)

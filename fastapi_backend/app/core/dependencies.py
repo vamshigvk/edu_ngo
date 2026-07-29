@@ -60,5 +60,6 @@ def require_roles(*roles: UserRole):
     return _guard
 
 
-# Convenience guard: any authenticated admin.
+# Convenience guards.
 require_admin = require_roles(UserRole.ADMIN)
+require_reviewer = require_roles(UserRole.REVIEWER)  # reviewer or admin

@@ -43,8 +43,9 @@ schema, and seeds demo data on first boot. When it finishes:
 | Email | Role | Lands on |
 |---|---|---|
 | `admin@example.com` | admin | `/admin` dashboard |
-| `vikram.singh@example.com` | mentor | home |
-| `aarav.mehta@example.com` | mentee | home |
+| `reviewer@example.com` | reviewer | `/review` screening portal |
+| `vikram.singh@example.com` | mentor | `/mentor` dashboard |
+| `aarav.mehta@example.com` | mentee | `/mentee` dashboard |
 
 ### `setup.sh` commands
 
@@ -155,9 +156,49 @@ The Vite dev server (`frontend/vite.config.js`) proxies `/api`, `/auth`,
 | Student apply (`/apply/student`) | `POST /api/users` → `/api/mentee-profiles` → `/api/applications` → `/api/applications/{id}/submit` |
 | Mentor apply (`/apply/mentor`) | `POST /api/users` → `/api/mentor-profiles` |
 | Admin (`/admin`) | `GET /api/users`, `/api/pairs`, `/dashboard/emp`, `/api/resources` CRUD |
-| Resources (`/resources`) | `GET /api/resources` |
+| Admin → Applications | `GET /api/applications/review-board`, `POST /api/cohorts/{id}/scoring/run`, `POST /api/applications/{id}/reviewers` \| `/system-decision` \| `/admin-decision`, `GET /api/notifications` |
+| Reviewer (`/review`) | `GET /api/reviews/assigned`, `POST /api/reviews/{id}/submit` |
+| Resources (`/resources`) | `GET /api/public/resources` |
 
 Full, interactive API reference: **http://localhost:8000/docs**.
+
+### Mentee selection pipeline (Phase 1)
+
+The admin **Applications** tab runs the funnel from the programme workflow:
+**in-app application** (cohort-configured form) → **disadvantage scoring**
+(automated) → **profile screening** by assigned reviewers (Select/Reject) →
+**system decision** (score vs. the cohort's `selection_threshold` + reviewer
+majority; flags reconciliation on disagreement) → **admin decision**
+(Select / Waitlist / Reject). Each admin decision writes a stubbed
+**notification** (visible under the Notifications tab) — swap in real email
+later without touching callers.
+
+> **Existing database?** The new columns/tables ship as Alembic migrations.
+> Run `alembic upgrade head` in `fastapi_backend`, or `./setup.sh reset` for a
+> fresh seeded volume. New/empty databases are created automatically on boot.
+
+### Programme lifecycle (Phases 2–6)
+
+Beyond selection, the platform now models the full programme workflow:
+
+- **Onboarding (declarations).** Selected mentors/mentees sign a declaration
+  (`POST /auth/declaration`) to formally join; mentor sign-up captures a
+  "studied abroad" flag. Dashboards prompt until signed.
+- **Mapping.** Admin **Mapping** tab pairs mentees with mentors by discipline
+  (same-discipline mentors with spare capacity are suggested) and assigns each
+  mentee a **one-on-one** or **cohort** mentorship type (`/api/mapping/*`).
+- **Document review portal.** Mentees upload application docs by link; admins
+  assign a mentor reviewer; mentors return written feedback (`/api/documents/*`).
+- **Workshops & support.** Admins schedule workshops (with YouTube recording
+  links); mentors sign up as panellists; mentors/mentees opt into the English
+  Language Support Programme (`/api/workshops/*`, `POST /auth/english-support`).
+- **Close of programme.** Mentees submit feedback + offer-tracking records and
+  can return as a mentor (alumni) (`/api/closeout/*`). Admin **Close-out** tab
+  reviews submissions.
+
+Role-based access is enforced throughout: mentee/mentor/reviewer endpoints sit
+outside the admin guard with their own per-endpoint role checks, while all other
+`/api/*` management routes remain admin-only.
 
 ---
 

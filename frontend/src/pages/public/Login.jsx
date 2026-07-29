@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 
 export default function Login(){
@@ -88,9 +89,9 @@ export default function Login(){
           <div className="mt-6 text-center">
             <p className="text-yellow-300 text-sm">
               Don't have an account?{' '}
-              <a href="#" className="text-yellow-400 hover:text-yellow-200 font-medium hover:underline">
+              <Link to="/signup" className="text-yellow-400 hover:text-yellow-200 font-medium hover:underline">
                 Sign up
-              </a>
+              </Link>
             </p>
           </div>
         </div>

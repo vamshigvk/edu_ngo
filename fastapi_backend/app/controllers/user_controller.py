@@ -5,19 +5,25 @@ from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.schemas.user import UserCreate, UserRead, UserUpdate
+from app.schemas.user import UserCreate, UserPage, UserRead, UserUpdate
 from app.services.user_service import user_service
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.get("", response_model=list[UserRead], summary="List users")
+@router.get("", response_model=UserPage, summary="List users (search + pagination)")
 async def list_users(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=1000),
+    search: str | None = Query(None, description="Match against name or email."),
+    role: str | None = Query(None, description="Filter by role, e.g. mentor/mentee."),
     db: AsyncSession = Depends(get_db),
 ):
-    return await user_service.list(db, skip=skip, limit=limit)
+    items = await user_service.list(
+        db, skip=skip, limit=limit, search=search, role=role
+    )
+    total = await user_service.count(db, search=search, role=role)
+    return {"items": items, "total": total}
 
 
 @router.post(

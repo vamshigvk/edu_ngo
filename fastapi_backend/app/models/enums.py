@@ -16,7 +16,16 @@ class UserRole(StrEnum):
     GUEST = "guest"
     MENTEE = "mentee"
     MENTOR = "mentor"
+    REVIEWER = "reviewer"
     ADMIN = "admin"
+
+
+class DecisionOutcome(StrEnum):
+    """Select / Reject / Waitlist decision used by reviewers, the system, and admin."""
+
+    SELECT = "select"
+    REJECT = "reject"
+    WAITLIST = "waitlist"
 
 
 class FieldType(StrEnum):
@@ -86,3 +95,25 @@ class PermissionAction(StrEnum):
     READ = "read"
     UPDATE = "update"
     DELETE = "delete"
+
+
+class MentorshipType(StrEnum):
+    """How a selected mentee is mentored (Phase 3 mapping)."""
+
+    ONE_ON_ONE = "one_on_one"
+    COHORT = "cohort"
+
+
+class DocumentStatus(StrEnum):
+    """University-application document review lifecycle (Phase 4)."""
+
+    PENDING = "pending"
+    ASSIGNED = "assigned"
+    REVIEWED = "reviewed"
+
+
+class WorkshopAudience(StrEnum):
+    """Who a workshop is for (Phase 5)."""
+
+    MENTEE_ONLY = "mentee_only"
+    PUBLIC = "public"

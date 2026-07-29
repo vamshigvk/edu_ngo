@@ -2,12 +2,12 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
-from app.models.base import UUIDPrimaryKeyMixin
+from app.models.base import TimestampMixin, UUIDPrimaryKeyMixin
 from app.models.enums import ApplicationPurpose, ApplicationStatus
 
 
@@ -27,7 +27,7 @@ class ApplicationFormConfig(UUIDPrimaryKeyMixin, Base):
     cohort = relationship("Cohort", back_populates="form_configs")
 
 
-class Application(UUIDPrimaryKeyMixin, Base):
+class Application(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     __tablename__ = "applications"
 
     user_id: Mapped[uuid.UUID] = mapped_column(
@@ -45,9 +45,23 @@ class Application(UUIDPrimaryKeyMixin, Base):
     )
     auto_score: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     final_score: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+    # Automated "disadvantage score" (populated by the scoring engine).
+    disadvantage_score: Mapped[float] = mapped_column(
+        Float, default=0.0, nullable=False
+    )
+    # Selection funnel: system decision (formula) vs admin decision (final).
+    system_decision: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    admin_decision: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    admin_decision_notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     reviewed_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
 
     user = relationship("User", lazy="selectin")
     cohort = relationship("Cohort", back_populates="applications")
+    reviews = relationship(
+        "ApplicationReview",
+        back_populates="application",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )

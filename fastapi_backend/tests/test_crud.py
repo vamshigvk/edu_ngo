@@ -1,7 +1,8 @@
 """CRUD coverage for representative resources."""
 
 
-async def test_cohort_crud(client):
+async def test_cohort_crud(admin_client):
+    client = admin_client
     payload = {
         "name": "Cohort A",
         "program": "SWE",
@@ -34,7 +35,8 @@ async def test_cohort_crud(client):
     assert resp.status_code == 404
 
 
-async def test_resource_crud(client):
+async def test_resource_crud(admin_client):
+    client = admin_client
     payload = {"title": "Guide", "type": "guide", "url": "https://x.example/guide"}
     resp = await client.post("/api/resources", json=payload)
     assert resp.status_code == 201, resp.text
@@ -45,7 +47,8 @@ async def test_resource_crud(client):
     assert resp.json()["type"] == "guide"
 
 
-async def test_user_derived_name_on_pair(client):
+async def test_user_derived_name_on_pair(admin_client):
+    client = admin_client
     # Two users -> a pair -> derived mentor_name/mentee_name populated.
     async def make_user(email, role):
         r = await client.post(

@@ -52,3 +52,15 @@ async def register_and_login(client: AsyncClient, email: str, role: str = "admin
     )
     token = resp.json()["access_token"]
     return f"Bearer {token}"
+
+
+@pytest_asyncio.fixture
+async def admin_client(client: AsyncClient):
+    """The shared client, pre-authenticated as an admin.
+
+    Every ``/api`` management endpoint now requires an admin token, so CRUD and
+    workflow tests use this fixture instead of the anonymous ``client``.
+    """
+    header = await register_and_login(client, "admin@example.com", "admin")
+    client.headers.update({"Authorization": header})
+    return client

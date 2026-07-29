@@ -1,7 +1,7 @@
 """Cohort model."""
 from datetime import date
 
-from sqlalchemy import Date, Integer, String
+from sqlalchemy import Date, Float, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
@@ -20,6 +20,10 @@ class Cohort(UUIDPrimaryKeyMixin, TimestampMixin, Base):
         String(20), default=CohortStatus.UPCOMING, nullable=False
     )
     max_mentees: Mapped[int] = mapped_column(Integer, nullable=False)
+    # Minimum disadvantage score for the system to recommend selection.
+    selection_threshold: Mapped[float] = mapped_column(
+        Float, default=0.0, nullable=False
+    )
 
     mentees = relationship("MenteeProfile", back_populates="cohort")
     form_configs = relationship(
