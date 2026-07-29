@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import api from '../../services/api'
-import { AuthContext } from '../../context/AuthContext'
+import { PageHeader, Stat, ErrorBanner } from '../../components/ui'
 
 const RESOURCE_TYPES = [
   { value: 'scholarship', label: 'Scholarship' },
@@ -28,8 +29,8 @@ function errText(err, fallback){
 }
 
 export default function Admin(){
-  const { user, logout } = useContext(AuthContext)
-  const [tab, setTab] = useState('mentors')
+  const [searchParams] = useSearchParams()
+  const tab = searchParams.get('tab') || 'mentors'
   const [error, setError] = useState('')
   const [summary, setSummary] = useState(null)
 
@@ -154,28 +155,34 @@ export default function Admin(){
     } catch (err) { setError(errText(err, 'Failed to load close-out data.')) }
   }
 
+  // Baseline data (summary + cohort selectors) loaded once.
   useEffect(() => {
     async function init(){
       try {
         const dash = await api.get('/dashboard/emp')
         setSummary(dash.data.platform_summary)
       } catch (err) { setError(errText(err, 'Failed to load dashboard data.')) }
-      await Promise.all([loadPeople('mentor', 0, ''), loadPairs(), loadCohorts(), loadResources()])
+      await loadCohorts()
     }
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  function selectTab(t){
-    setTab(t); setError('')
-    if (roleFor(t)) { setPage(0); setSearch(''); setSearchInput(''); loadPeople(roleFor(t), 0, '') }
-    if (t === 'applications') { loadBoard(boardCohort); loadReviewers() }
-    if (t === 'mapping') loadMapping(mappingCohort)
-    if (t === 'documents') loadDocuments()
-    if (t === 'workshops') loadWorkshops()
-    if (t === 'closeout') loadCloseout()
-    if (t === 'notifications') loadNotifications()
-  }
+  // Load whichever tab the sidebar selected (via the ?tab= query param).
+  useEffect(() => {
+    setError('')
+    if (roleFor(tab)) { setPage(0); setSearch(''); setSearchInput(''); loadPeople(roleFor(tab), 0, '') }
+    else if (tab === 'applications') { loadBoard(boardCohort); loadReviewers() }
+    else if (tab === 'mapping') loadMapping(mappingCohort)
+    else if (tab === 'matches') loadPairs()
+    else if (tab === 'documents') loadDocuments()
+    else if (tab === 'workshops') loadWorkshops()
+    else if (tab === 'closeout') loadCloseout()
+    else if (tab === 'cohorts') loadCohorts()
+    else if (tab === 'resources') loadResources()
+    else if (tab === 'notifications') loadNotifications()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab])
 
   async function setMenteeType(menteeId, type){
     try { await api.post('/api/mapping/mentee-type', { mentee_id: menteeId, mentorship_type: type }); await loadMapping(mappingCohort) }
@@ -246,50 +253,20 @@ export default function Admin(){
     resources: 'Resources', notifications: 'Notifications',
   }[tab]
   const totalPages = Math.max(1, Math.ceil(peopleTotal / PAGE_SIZE))
-  const TABS = [
-    ['mentors', 'Mentors'], ['students', 'Students'], ['applications', 'Applications'],
-    ['mapping', 'Mapping'], ['matches', 'Matches'], ['documents', 'Documents'],
-    ['workshops', 'Workshops'], ['closeout', 'Close-out'], ['cohorts', 'Cohorts'],
-    ['resources', 'Resources'], ['notifications', 'Notifications'],
-  ]
 
   return (
-    <div className="min-h-screen bg-yellow-50">
-      <div className="min-h-screen flex flex-col md:flex-row">
-        <aside className="md:w-64 w-full bg-gray-900 text-yellow-300 p-6 md:min-h-screen">
-          <div className="flex items-center justify-between md:block mb-6">
-            <div>
-              <h2 className="text-2xl font-semibold">Admin</h2>
-              {user && <p className="text-xs text-yellow-500 mt-1">{user.full_name}</p>}
-            </div>
-            <button onClick={logout} className="px-3 py-2 bg-red-600 rounded text-white md:hidden">Logout</button>
-          </div>
-          <nav className="space-y-2">
-            {TABS.map(([key, label]) => (
-              <button key={key} onClick={() => selectTab(key)}
-                className={`w-full text-left px-3 py-2 rounded ${tab===key ? 'bg-yellow-700 text-white' : 'hover:bg-yellow-900'}`}>
-                {label}
-              </button>
-            ))}
-          </nav>
-          <div className="hidden md:block mt-8">
-            <button onClick={logout} className="w-full px-3 py-3 bg-red-600 rounded text-white">Logout</button>
-          </div>
-        </aside>
+    <div>
+      <PageHeader title={heading} />
 
-        <main className="flex-1 p-6 md:p-8 min-h-screen bg-white">
-          <div className="max-w-full mx-auto">
-            <h3 className="text-3xl font-semibold mb-6 text-gray-800">{heading}</h3>
+      {summary && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <Stat label="Total Users" value={summary.total_users} />
+          <Stat label="Active Cohorts" value={summary.total_active_cohorts} />
+          <Stat label="Applications Under Review" value={summary.total_applications_under_review} />
+        </div>
+      )}
 
-            {summary && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                <div className="p-4 rounded-lg bg-yellow-100"><p className="text-sm text-gray-600">Total Users</p><p className="text-2xl font-bold text-gray-900">{summary.total_users}</p></div>
-                <div className="p-4 rounded-lg bg-yellow-100"><p className="text-sm text-gray-600">Active Cohorts</p><p className="text-2xl font-bold text-gray-900">{summary.total_active_cohorts}</p></div>
-                <div className="p-4 rounded-lg bg-yellow-100"><p className="text-sm text-gray-600">Applications Under Review</p><p className="text-2xl font-bold text-gray-900">{summary.total_applications_under_review}</p></div>
-              </div>
-            )}
-
-            {error && <div className="mb-6 p-3 bg-red-100 border border-red-400 text-red-700 rounded">{error}</div>}
+      <ErrorBanner>{error}</ErrorBanner>
 
             {(tab === 'mentors' || tab === 'students') && (
               <PeopleTable kind={tab} people={people} total={peopleTotal} page={page}
@@ -438,9 +415,6 @@ export default function Admin(){
                 )}
               </div>
             )}
-          </div>
-        </main>
-      </div>
     </div>
   )
 }

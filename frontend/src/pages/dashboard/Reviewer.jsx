@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { AuthContext } from '../../context/AuthContext'
+import { PageHeader, Card, Badge, Button, ErrorBanner, EmptyState, inputClass } from '../../components/ui'
 
 function errText(err, fallback){
   const detail = err?.response?.data?.error?.message || err?.response?.data?.detail
@@ -25,52 +26,46 @@ function ReviewCard({ item, onSubmitted }){
   }
 
   return (
-    <li className="p-4 bg-white rounded shadow-sm border">
+    <Card as="li" className="p-4">
       <div className="flex justify-between items-start gap-4">
         <div>
-          <p className="font-semibold text-gray-900">{item.applicant_name || 'Applicant'}</p>
-          <p className="text-sm text-gray-500">Disadvantage score: {item.disadvantage_score}</p>
+          <p className="font-semibold text-neutral-900">{item.applicant_name || 'Applicant'}</p>
+          <p className="text-sm text-neutral-500">Disadvantage score: {item.disadvantage_score}</p>
         </div>
-        {item.my_decision && (
-          <span className="text-xs uppercase px-2 py-1 rounded bg-green-100 text-green-700">
-            submitted: {item.my_decision}
-          </span>
-        )}
+        {item.my_decision && <Badge tone="green">submitted: {item.my_decision}</Badge>}
       </div>
 
       {Object.keys(item.answers || {}).length > 0 && (
         <dl className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm">
           {Object.entries(item.answers).map(([k, v]) => (
             <div key={k} className="flex gap-2">
-              <dt className="text-gray-500">{k}:</dt>
-              <dd className="text-gray-800">{v == null || v === '' ? '—' : String(v)}</dd>
+              <dt className="text-neutral-500">{k}:</dt>
+              <dd className="text-neutral-800">{v == null || v === '' ? '—' : String(v)}</dd>
             </div>
           ))}
         </dl>
       )}
 
-      {error && <div className="mt-3 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">{error}</div>}
+      {error && <div className="mt-3 p-2 bg-red-50 border border-red-200 text-red-700 rounded text-sm">{error}</div>}
 
       <form onSubmit={submit} className="mt-4 flex flex-col sm:flex-row gap-3 sm:items-end">
-        <label className="text-sm text-gray-600">Decision
-          <select value={decision} onChange={e => setDecision(e.target.value)} className="mt-1 block p-2 rounded border">
+        <label className="text-sm text-neutral-600">Decision
+          <select value={decision} onChange={e => setDecision(e.target.value)} className={`${inputClass} mt-1`}>
             <option value="select">Select</option>
             <option value="reject">Reject</option>
           </select>
         </label>
-        <label className="text-sm text-gray-600 flex-1">Screening notes
-          <input value={description} onChange={e => setDescription(e.target.value)} placeholder="Reviewer description" className="mt-1 block w-full p-2 rounded border" />
+        <label className="text-sm text-neutral-600 flex-1">Screening notes
+          <input value={description} onChange={e => setDescription(e.target.value)} placeholder="Reviewer description" className={`${inputClass} mt-1`} />
         </label>
-        <button disabled={saving} className="px-4 py-2 bg-yellow-600 text-white rounded disabled:opacity-50">
-          {saving ? 'Saving...' : 'Submit review'}
-        </button>
+        <Button variant="accent" type="submit" disabled={saving}>{saving ? 'Saving...' : 'Submit review'}</Button>
       </form>
-    </li>
+    </Card>
   )
 }
 
 export default function Reviewer(){
-  const { user, logout } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const [items, setItems] = useState([])
   const [error, setError] = useState('')
 
@@ -85,26 +80,18 @@ export default function Reviewer(){
   useEffect(() => { load() }, [])
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Reviewer — Profile Screening</h1>
-          <p className="text-gray-600 mt-1">Welcome, {user?.full_name}.</p>
-        </div>
-        <button onClick={logout} className="px-4 py-2 bg-black text-yellow-400 font-semibold rounded hover:bg-gray-900">Logout</button>
-      </div>
-
-      {error && <div className="mb-6 p-3 bg-red-100 border border-red-400 text-red-700 rounded">{error}</div>}
-
-      {items.length === 0 ? (
-        <p className="text-gray-600">No applications are assigned to you yet.</p>
-      ) : (
-        <ul className="space-y-4">
-          {items.map(item => (
-            <ReviewCard key={item.review_id} item={item} onSubmitted={load} />
-          ))}
-        </ul>
-      )}
+    <div>
+      <PageHeader title="Profile Screening" subtitle={`Welcome, ${user?.full_name || ''}.`} />
+      <ErrorBanner>{error}</ErrorBanner>
+      <section id="reviews" className="scroll-mt-20">
+        {items.length === 0 ? (
+          <EmptyState>No applications are assigned to you yet.</EmptyState>
+        ) : (
+          <ul className="space-y-4">
+            {items.map(item => <ReviewCard key={item.review_id} item={item} onSubmitted={load} />)}
+          </ul>
+        )}
+      </section>
     </div>
   )
 }

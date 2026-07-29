@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import PublicLayout from './components/layout/PublicLayout'
+import AppLayout from './components/layout/AppLayout'
 // Public marketing pages (replica of projecteduaccess.com)
 import Home from './pages/public/Home'
 import AboutUs from './pages/public/AboutUs'
@@ -67,18 +68,20 @@ export default function App(){
         <Route path="login" element={<Login/>} />
         <Route path="signup" element={<Signup/>} />
 
-        {/* Dashboards */}
-        <Route path="admin" element={<ProtectedRoute role="admin"><Admin/></ProtectedRoute>} />
-        <Route path="mentor" element={<ProtectedRoute role="mentor"><Mentor/></ProtectedRoute>} />
-        <Route path="mentee" element={<ProtectedRoute role="mentee"><Mentee/></ProtectedRoute>} />
-        <Route path="review" element={<ProtectedRoute role="reviewer"><Reviewer/></ProtectedRoute>} />
-
         {/* Legacy path redirects */}
         <Route path="about" element={<Navigate to="/about-us" replace />} />
         <Route path="work" element={<Navigate to="/our-work" replace />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+
+      {/* Authenticated app shell (role-scoped sidebar) */}
+      <Route element={<AppLayout />}>
+        <Route path="/admin" element={<ProtectedRoute role="admin"><Admin/></ProtectedRoute>} />
+        <Route path="/mentor" element={<ProtectedRoute role="mentor"><Mentor/></ProtectedRoute>} />
+        <Route path="/mentee" element={<ProtectedRoute role="mentee"><Mentee/></ProtectedRoute>} />
+        <Route path="/review" element={<ProtectedRoute role="reviewer"><Reviewer/></ProtectedRoute>} />
       </Route>
     </Routes>
   )
