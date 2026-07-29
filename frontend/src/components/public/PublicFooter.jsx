@@ -11,6 +11,7 @@ export default function PublicFooter() {
             <Link to="/" className="hover:text-yellow-400">home</Link>
             <Link to="/our-work" className="hover:text-yellow-400">explore our work</Link>
             <Link to="/team" className="hover:text-yellow-400">team</Link>
+            <Link to="/faq" className="hover:text-yellow-400">faqs</Link>
             <Link to="/contact-us" className="hover:text-yellow-400">privacy policy</Link>
           </div>
           <p className="text-[12px] text-neutral-500">© {new Date().getFullYear()} by Project EduAccess.</p>

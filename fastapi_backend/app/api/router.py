@@ -13,6 +13,7 @@ from app.controllers import (
     cohort_controller,
     dashboard_controller,
     document_controller,
+    faq_controller,
     mapping_controller,
     notification_controller,
     public_controller,
@@ -51,6 +52,7 @@ api_router.include_router(resource_router)
 api_router.include_router(permission_router)
 api_router.include_router(notification_controller.router)
 api_router.include_router(mapping_controller.router)
+api_router.include_router(faq_controller.router)
 
 # --- public /api namespace (NO auth — mounted separately in main.py) --------
 # Kept out of ``api_router`` so the admin auth dependency does not apply to it.

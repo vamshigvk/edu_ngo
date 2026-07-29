@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import PublicHeader from '../public/PublicHeader'
 import PublicFooter from '../public/PublicFooter'
+import NoorChat from '../public/NoorChat'
 
 export default function PublicLayout(){
   return (
@@ -11,6 +12,7 @@ export default function PublicLayout(){
         <Outlet />
       </main>
       <PublicFooter />
+      <NoorChat />
     </div>
   )
 }

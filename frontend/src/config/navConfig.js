@@ -19,6 +19,7 @@ export const NAV = {
       { label: 'Close-out', tab: 'closeout' },
       { label: 'Cohorts', tab: 'cohorts' },
       { label: 'Resources', tab: 'resources' },
+      { label: 'FAQs', tab: 'faqs' },
       { label: 'Notifications', tab: 'notifications' },
     ],
   },

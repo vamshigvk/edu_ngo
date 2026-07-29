@@ -9,6 +9,7 @@ from app.models.checkin import CheckIn
 from app.models.closeout import OfferRecord, ProgrammeFeedback
 from app.models.cohort import Cohort
 from app.models.document import Document
+from app.models.faq import FAQ
 from app.models.notification import NotificationLog
 from app.models.pairing import MentorMenteePair
 from app.models.permission import RolePermission
@@ -27,6 +28,7 @@ __all__ = [
     "CheckIn",
     "Cohort",
     "Document",
+    "FAQ",
     "MentorMenteePair",
     "NotificationLog",
     "OfferRecord",
