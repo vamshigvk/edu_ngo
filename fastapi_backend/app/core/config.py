@@ -36,6 +36,16 @@ class Settings(BaseSettings):
     # CORS
     cors_origins: str = "*"
 
+    # Email / SMTP
+    smtp_host: str = ""
+    smtp_port: int = 25
+    smtp_username: str = ""
+    smtp_password: str = ""
+    smtp_from_email: str = ""
+    smtp_use_tls: bool = False
+    smtp_use_ssl: bool = False
+    smtp_timeout_seconds: int = 10
+
     @property
     def cors_origin_list(self) -> list[str]:
         if self.cors_origins.strip() == "*":

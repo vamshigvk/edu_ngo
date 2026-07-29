@@ -1,14 +1,18 @@
-"""Stubbed notification service — the PDF's "Mail Merge", minus the email.
+"""Email notifications for the application workflow.
 
-Instead of sending, it appends a ``NotificationLog`` row. When a real provider
-is wired up, only ``send`` changes; callers stay the same.
+Each notification is persisted in the database and, when SMTP is configured,
+will also be delivered to the recipient via email.
 """
+import smtplib
 import uuid
+from email.message import EmailMessage
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.models.enums import DecisionOutcome
 from app.models.notification import NotificationLog
+from app.models.user import User
 
 # template key -> (subject, body) for selection-decision emails.
 _TEMPLATES = {
@@ -31,6 +35,37 @@ _TEMPLATES = {
         "in this cohort. We encourage you to reapply in a future cycle.",
     ),
 }
+
+
+async def _resolve_recipient_email(db: AsyncSession, user_id: uuid.UUID | None) -> str | None:
+    if not user_id:
+        return None
+    user = await db.get(User, user_id)
+    return user.email if user else None
+
+
+async def _deliver_via_smtp(*, recipient: str, subject: str, body: str) -> bool:
+    if not settings.smtp_host:
+        return False
+
+    message = EmailMessage()
+    message["From"] = settings.smtp_from_email or settings.smtp_username or "noreply@example.com"
+    message["To"] = recipient
+    message["Subject"] = subject
+    message.set_content(body)
+
+    smtp_class = smtplib.SMTP_SSL if settings.smtp_use_ssl else smtplib.SMTP
+    with smtp_class(
+        settings.smtp_host,
+        settings.smtp_port or 25,
+        timeout=settings.smtp_timeout_seconds,
+    ) as server:
+        if not settings.smtp_use_ssl and settings.smtp_use_tls:
+            server.starttls()
+        if settings.smtp_username and settings.smtp_password:
+            server.login(settings.smtp_username, settings.smtp_password)
+        server.send_message(message)
+    return True
 
 
 async def log(
@@ -62,7 +97,7 @@ async def log_decision(
     application_id: uuid.UUID,
 ) -> NotificationLog:
     template, subject, body = _TEMPLATES[decision]
-    return await log(
+    entry = await log(
         db,
         template=template,
         subject=subject,
@@ -70,3 +105,20 @@ async def log_decision(
         user_id=user_id,
         application_id=application_id,
     )
+
+    recipient = await _resolve_recipient_email(db, user_id)
+    if recipient:
+        try:
+            sent = await _deliver_via_smtp(
+                recipient=recipient,
+                subject=subject,
+                body=body,
+            )
+            entry.status = "sent" if sent else "logged"
+        except Exception:
+            entry.status = "failed"
+    else:
+        entry.status = "logged"
+
+    await db.flush()
+    return entry
