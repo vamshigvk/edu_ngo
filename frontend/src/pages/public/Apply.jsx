@@ -1,16 +1,26 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Page, PageTitle, Prose, LinkCard } from '../../components/public/ui'
 
 export default function Apply(){
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-black">Apply</h1>
-      <p className="mt-4 text-gray-800 text-lg">Student and Mentor application forms will be available here.</p>
-
-      <div className="mt-8 flex gap-4">
-        <Link to="/apply/student" className="px-6 py-3 bg-black text-yellow-400 font-semibold rounded hover:bg-gray-900">Apply as Student</Link>
-        <Link to="/apply/mentor" className="px-6 py-3 bg-black text-yellow-400 font-semibold rounded hover:bg-gray-900">Become a Mentor</Link>
+    <Page>
+      <PageTitle>apply</PageTitle>
+      <Prose className="mt-8 max-w-3xl">
+        <p>
+          Join Project EduAccess as a mentee to receive free, personalised 1:1 mentorship, or sign up as a
+          mentor to support learners from marginalised communities. Choose how you'd like to get involved.
+        </p>
+      </Prose>
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+        <LinkCard to="/apply/student" title="apply as a mentee">
+          Get comprehensive support and free 1:1 mentorship from graduates of top foreign universities for
+          postgraduate degrees (including PhD).
+        </LinkCard>
+        <LinkCard to="/apply/mentor" title="become a mentor">
+          Share your expertise and experience to positively impact the future of students from historically
+          marginalised and disadvantaged communities.
+        </LinkCard>
       </div>
-    </div>
+    </Page>
   )
 }
