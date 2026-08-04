@@ -21,6 +21,7 @@ const EMPTY_COHORT = {
 }
 const EMPTY_FIELD = { field_name: '', field_type: 'text', is_required: false, field_order: 0, options: '' }
 const EMPTY_WORKSHOP = { title: '', description: '', scheduled_date: '', recording_url: '', audience: 'public' }
+const EMPTY_FAQ = { question: '', answer: '', category: '', tags: '', is_published: true, display_order: 0 }
 const PAGE_SIZE = 10
 
 function errText(err, fallback){
@@ -73,6 +74,11 @@ export default function Admin(){
   // Close of programme.
   const [feedback, setFeedback] = useState([])
   const [offers, setOffers] = useState([])
+
+  // FAQs (Noor knowledge base).
+  const [faqs, setFaqs] = useState([])
+  const [newFaq, setNewFaq] = useState(EMPTY_FAQ)
+  const [savingFaq, setSavingFaq] = useState(false)
 
   const roleFor = (t) => (t === 'mentors' ? 'mentor' : t === 'students' ? 'mentee' : null)
 
@@ -154,6 +160,38 @@ export default function Admin(){
       setOffers((await api.get('/api/closeout/offers')).data)
     } catch (err) { setError(errText(err, 'Failed to load close-out data.')) }
   }
+  async function loadFaqs(){
+    try { setFaqs((await api.get('/api/faqs')).data) }
+    catch (err) { setError(errText(err, 'Failed to load FAQs.')) }
+  }
+  function faqPayload(f){
+    return {
+      question: f.question, answer: f.answer,
+      category: f.category || null,
+      tags: typeof f.tags === 'string'
+        ? f.tags.split(',').map(s => s.trim()).filter(Boolean)
+        : (f.tags || []),
+      is_published: f.is_published !== false,
+      display_order: Number(f.display_order) || 0,
+    }
+  }
+  async function addFaq(e){
+    e.preventDefault()
+    if (!newFaq.question || !newFaq.answer) return
+    setSavingFaq(true); setError('')
+    try { await api.post('/api/faqs', faqPayload(newFaq)); setNewFaq(EMPTY_FAQ); await loadFaqs() }
+    catch (err) { setError(errText(err, 'Failed to add FAQ.')) }
+    finally { setSavingFaq(false) }
+  }
+  async function deleteFaq(id){
+    try { await api.delete(`/api/faqs/${id}`); await loadFaqs() }
+    catch (err) { setError(errText(err, 'Failed to delete FAQ.')) }
+  }
+  async function bulkImportFaqs(items){
+    setError('')
+    try { await api.post('/api/faqs/bulk-import', { items: items.map(faqPayload) }); await loadFaqs() }
+    catch (err) { setError(errText(err, 'Bulk import failed.')) }
+  }
 
   // Baseline data (summary + cohort selectors) loaded once.
   useEffect(() => {
@@ -180,6 +218,7 @@ export default function Admin(){
     else if (tab === 'closeout') loadCloseout()
     else if (tab === 'cohorts') loadCohorts()
     else if (tab === 'resources') loadResources()
+    else if (tab === 'faqs') loadFaqs()
     else if (tab === 'notifications') loadNotifications()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab])
@@ -250,7 +289,8 @@ export default function Admin(){
     mapping: 'Mentee - Mentor Mapping', matches: 'Mentor - Mentee Matches',
     documents: 'Document Review Portal', workshops: 'Workshops',
     closeout: 'Close of Programme', cohorts: 'Cohorts',
-    resources: 'Resources', notifications: 'Notifications',
+    resources: 'Resources', faqs: 'FAQs (Noor knowledge base)',
+    notifications: 'Notifications',
   }[tab]
   const totalPages = Math.max(1, Math.ceil(peopleTotal / PAGE_SIZE))
 
@@ -397,6 +437,14 @@ export default function Admin(){
               </div>
             )}
 
+            {tab === 'faqs' && (
+              <FaqsPanel
+                faqs={faqs} newFaq={newFaq} setNewFaq={setNewFaq}
+                saving={savingFaq} onCreate={addFaq} onDelete={deleteFaq}
+                onBulkImport={bulkImportFaqs} onError={setError}
+              />
+            )}
+
             {tab === 'notifications' && (
               <div>
                 <p className="text-gray-600 mb-4 text-sm">Stubbed outbound notifications (the "Mail Merge" log). Emails aren't sent yet — each selection decision records an entry here.</p>
@@ -415,6 +463,90 @@ export default function Admin(){
                 )}
               </div>
             )}
+    </div>
+  )
+}
+
+function splitCsvLine(line){
+  const out = []; let cur = ''; let q = false
+  for (let i = 0; i < line.length; i++){
+    const c = line[i]
+    if (c === '"'){ if (q && line[i+1] === '"'){ cur += '"'; i++ } else q = !q }
+    else if (c === ',' && !q){ out.push(cur); cur = '' }
+    else cur += c
+  }
+  out.push(cur)
+  return out.map(s => s.trim())
+}
+
+function parseBulk(text){
+  const t = (text || '').trim()
+  if (!t) return []
+  // Prefer JSON array of {question, answer, category?, tags?}.
+  try { const j = JSON.parse(t); if (Array.isArray(j)) return j } catch { /* fall through to CSV */ }
+  // CSV: question,answer,category,tags  (one FAQ per line)
+  return t.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(line => {
+    const p = splitCsvLine(line)
+    return { question: p[0] || '', answer: p[1] || '', category: p[2] || '', tags: p[3] || '' }
+  }).filter(r => r.question && r.answer)
+}
+
+function FaqsPanel({ faqs, newFaq, setNewFaq, saving, onCreate, onDelete, onBulkImport, onError }){
+  const [bulk, setBulk] = useState('')
+  function doImport(){
+    const items = parseBulk(bulk)
+    if (!items.length) { onError('Nothing to import — paste JSON array or CSV (question,answer,category,tags).'); return }
+    onBulkImport(items); setBulk('')
+  }
+  return (
+    <div>
+      <p className="text-gray-600 mb-4 text-sm">These Q&amp;A entries power the public FAQ page and the Noor chatbot. Published FAQs are searchable by visitors.</p>
+
+      <h4 className="text-lg font-semibold mb-3">Add FAQ</h4>
+      <form onSubmit={onCreate} className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 max-w-3xl">
+        <input value={newFaq.question} onChange={e => setNewFaq({...newFaq, question: e.target.value})} placeholder="Question" required className="p-2 rounded border sm:col-span-2" />
+        <textarea value={newFaq.answer} onChange={e => setNewFaq({...newFaq, answer: e.target.value})} placeholder="Answer" required rows="3" className="p-2 rounded border sm:col-span-2" />
+        <input value={newFaq.category} onChange={e => setNewFaq({...newFaq, category: e.target.value})} placeholder="Category (e.g. Applications)" className="p-2 rounded border" />
+        <input value={newFaq.tags} onChange={e => setNewFaq({...newFaq, tags: e.target.value})} placeholder="Tags (comma-separated)" className="p-2 rounded border" />
+        <input type="number" value={newFaq.display_order} onChange={e => setNewFaq({...newFaq, display_order: e.target.value})} placeholder="Display order" className="p-2 rounded border" />
+        <label className="flex items-center gap-2 text-sm text-gray-700">
+          <input type="checkbox" checked={newFaq.is_published !== false} onChange={e => setNewFaq({...newFaq, is_published: e.target.checked})} /> Published
+        </label>
+        <div className="sm:col-span-2">
+          <button disabled={saving} className="px-4 py-2 bg-yellow-600 text-white rounded disabled:opacity-50">{saving ? 'Adding...' : 'Add FAQ'}</button>
+        </div>
+      </form>
+
+      <h4 className="text-lg font-semibold mb-2">Bulk import</h4>
+      <p className="text-gray-500 text-xs mb-2">
+        Paste a JSON array of <code>{'{ "question", "answer", "category", "tags": [] }'}</code>, or CSV rows
+        <code> question,answer,category,tags</code> (one per line).
+      </p>
+      <textarea value={bulk} onChange={e => setBulk(e.target.value)} rows="4" placeholder='[{"question":"...","answer":"...","category":"General","tags":["a","b"]}]' className="w-full p-2 rounded border font-mono text-xs mb-2 max-w-3xl" />
+      <div className="mb-8">
+        <button type="button" onClick={doImport} className="px-4 py-2 bg-gray-800 text-white rounded">Import FAQs</button>
+      </div>
+
+      <h4 className="text-lg font-semibold mb-3">Existing FAQs ({faqs.length})</h4>
+      {faqs.length === 0 ? <p className="text-gray-600">No FAQs yet.</p> : (
+        <ul className="space-y-3">
+          {faqs.map(f => (
+            <li key={f.id} className="p-3 bg-white rounded shadow-sm border flex justify-between items-start gap-4">
+              <div>
+                <p className="font-medium text-gray-800">
+                  {f.question}
+                  {!f.is_published && <span className="ml-2 text-xs uppercase px-2 py-0.5 rounded bg-gray-100 text-gray-500">draft</span>}
+                </p>
+                <p className="text-sm text-gray-600 mt-1">{f.answer}</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  {f.category || 'Uncategorised'}{f.tags?.length ? ` · ${f.tags.join(', ')}` : ''}
+                </p>
+              </div>
+              <button onClick={() => onDelete(f.id)} className="text-sm text-red-600 hover:underline shrink-0">Delete</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

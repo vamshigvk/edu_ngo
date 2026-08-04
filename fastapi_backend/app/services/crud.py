@@ -6,6 +6,7 @@ dashboards) have their own dedicated service modules.
 from app.models.application import Application, ApplicationFormConfig
 from app.models.checkin import CheckIn
 from app.models.cohort import Cohort
+from app.models.faq import FAQ
 from app.models.pairing import MentorMenteePair
 from app.models.permission import RolePermission
 from app.models.profile import MenteeProfile, MentorProfile
@@ -25,3 +26,4 @@ pair_service = CRUDService(MentorMenteePair, enrich=enrich_pair_names)
 checkin_service = CRUDService(CheckIn)
 resource_service = CRUDService(Resource)
 permission_service = CRUDService(RolePermission)
+faq_service = CRUDService(FAQ)

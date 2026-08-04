@@ -19,6 +19,7 @@ from app.core.database import get_db
 from app.core.exceptions import ValidationError
 from app.models.application import ApplicationFormConfig
 from app.models.cohort import Cohort
+from app.models.faq import FAQ
 from app.models.enums import (
     ApplicationPurpose,
     ApplicationStatus,
@@ -27,12 +28,14 @@ from app.models.enums import (
 )
 from app.schemas.application import FormFieldRead
 from app.schemas.cohort import CohortRead
+from app.schemas.faq import ChatRequest, ChatResponse, FAQRead
 from app.schemas.public import (
     PublicApplyResponse,
     PublicMentorApplication,
     PublicStudentApplication,
 )
 from app.schemas.resource import ResourceRead
+from app.services import chat_service
 from app.services.application_workflow import application_workflow_service
 from app.services.crud import (
     application_service,
@@ -86,6 +89,29 @@ async def public_resources(
     db: AsyncSession = Depends(get_db),
 ):
     return await resource_service.list(db, skip=skip, limit=limit)
+
+
+@router.get(
+    "/faqs",
+    response_model=list[FAQRead],
+    summary="List published FAQs (public)",
+)
+async def public_faqs(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(FAQ)
+        .where(FAQ.is_published.is_(True))
+        .order_by(FAQ.display_order, FAQ.created_at)
+    )
+    return list(result.scalars().all())
+
+
+@router.post(
+    "/chat",
+    response_model=ChatResponse,
+    summary="Ask Noor (FAQ-grounded chatbot)",
+)
+async def chat(payload: ChatRequest, db: AsyncSession = Depends(get_db)):
+    return await chat_service.answer_query(db, payload.message)
 
 
 @router.post(

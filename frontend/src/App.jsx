@@ -18,6 +18,7 @@ import ResourcesGuides from './pages/public/ResourcesGuides'
 import ResourcesWorkshops from './pages/public/ResourcesWorkshops'
 import ResourcesKashmir from './pages/public/ResourcesKashmir'
 import Contact from './pages/public/Contact'
+import FAQ from './pages/public/FAQ'
 // Platform pages
 import Apply from './pages/public/Apply'
 import StudentForm from './pages/public/StudentForm'
@@ -60,6 +61,9 @@ export default function App(){
 
         {/* Contact */}
         <Route path="contact-us" element={<Contact/>} />
+
+        {/* FAQ */}
+        <Route path="faq" element={<FAQ/>} />
 
         {/* Platform */}
         <Route path="apply" element={<Apply/>} />
